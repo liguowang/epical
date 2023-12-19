@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epical"
+version = "0.0.1"
+authors = [
+  {name="Liguo Wang", email="wangliguo78@gmail.com"},
+]
+maintainers = [
+  {name = "Liguo Wang", email = "wangliguo78@gmail.com"}
+]
+description = "epical --- Epigenetic age Calculator"
+readme = "README.rst"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+#[tool.setuptools.packages.find]
+#where = ["src"]
+#include = ["dmc"]
+dependencies = [
+	"numpy",
+	"scipy",
+	"scikit-learn",
+	"bx-python",
+	"pandas",
+	"EpigeneticPacemaker",
+	"matplotlib",
+]
+classifiers=[
+	"Programming Language :: Python :: 3",
+	'Development Status :: 4 - Beta',
+	"License :: OSI Approved :: MIT License",
+	'Environment :: Console',
+	'Intended Audience :: Science/Research',
+	'Operating System :: MacOS :: MacOS X',
+	'Operating System :: POSIX',
+	'Topic :: Scientific/Engineering :: Bio-Informatics',
+]
+
+keywords = ["epigenetics age", "biological age", "DNA methylation", "850K", "450K"]
+
+[project.scripts]
+epical = "dmc:epical"
+
+[project.urls]
+Homepage = "https://example.com"
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/me/spam.git"
+Issues = "https://github.com/me/spam/issues"
+Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"

@@ -1,0 +1,8 @@
+incluee src/dmc/*.py
+include src/dmc/data/*.pkl
+include src/dmc/data/*.py
+include src/dmc/data/*.h5
+include README.rst
+inlucde LISCENSE
+
+recursive-include src *.py
