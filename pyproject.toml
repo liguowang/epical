@@ -44,8 +44,7 @@ keywords = ["epigenetics age", "biological age", "DNA methylation", "850K", "450
 epical = "dmc:epical"
 
 [project.urls]
-Homepage = "https://example.com"
 Documentation = "https://readthedocs.org"
-Repository = "https://github.com/me/spam.git"
-Issues = "https://github.com/me/spam/issues"
-Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+Repository = "https://github.com/liguowang/epical.git"
+Issues = "https://github.com/liguowang/epical/issues"
+TestData = "https://sourceforge.net/projects/epical/files/"
