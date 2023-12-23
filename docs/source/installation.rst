@@ -70,4 +70,3 @@ Uninstall *Epical*
 ::
 
 $ pip3 uninstall epical
-
