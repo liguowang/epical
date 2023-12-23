@@ -71,3 +71,8 @@ Uninstall *Epical*
 
 $ pip3 uninstall epical
 
+
+
+Documentation
+=============
+`https://epical.readthedocs.io/en/latest/ <https://epical.readthedocs.io/en/latest/>`_
