@@ -38,13 +38,13 @@ classifiers=[
 	'Topic :: Scientific/Engineering :: Bio-Informatics',
 ]
 
-keywords = ["epigenetics age", "biological age", "DNA methylation", "850K", "450K"]
+keywords = ["epigenetics age", "biological age", "DNA methylation", "MethylationEPIC", "850K", "450K"]
 
 [project.scripts]
 epical = "dmc:epical"
 
 [project.urls]
-Documentation = "https://readthedocs.org"
+Documentation = "https://epical.readthedocs.io/en/latest/"
 Repository = "https://github.com/liguowang/epical.git"
 Issues = "https://github.com/liguowang/epical/issues"
 TestData = "https://sourceforge.net/projects/epical/files/"
