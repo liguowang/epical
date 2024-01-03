@@ -5,4 +5,5 @@ include src/dmc/data/*.h5
 include README.rst
 inlucde LISCENSE
 
+recursive-include docs
 recursive-include src *.py
