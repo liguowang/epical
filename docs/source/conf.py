@@ -47,3 +47,5 @@ html_theme_options = {
     'titles_only': False,
     'sidebarwidth':150
 }
+#def setup(app):
+#  app.add_css_file( "css/hatnotes.css" )

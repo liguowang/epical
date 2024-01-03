@@ -49,13 +49,13 @@ Install Epical
  # install from github
  $ pip3 install git+https://github.com/liguowang/epical.git
 
- # test if you can find the *epical* command
+ # test if *epical* is available and excutable
  $ epical --version
  epical 0.0.1
 
 .. note::
    If you used Python virtual environment to install
-   `TensorFlow <https://www.tensorflow.org/>`_, it is recommended to run the
+   `TensorFlow <https://www.tensorflow.org/>`_, you need to run the
    above command in the same virtual environment.
 
 

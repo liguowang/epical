@@ -3,20 +3,20 @@ Test datasets
 
 We provide three test datasets generated from the human liver, blood, and brain, using Illumina HumanMethylation450 (450K), MethylationEPIC v1.0 (850K), and MethylationEPIC v2.0, respectively.
 
-Liver Dataset
--------------
+Liver Dataset [1]_
+-------------------
 
-  * `liver_N32_HumanMethylation450_beta.tsv.gz <https://sourceforge.net/projects/epical/files/liver_N32_HumanMethylation450_beta.tsv.gz/download>`_
-  * Sample: Normal liver tissue (no liver diseases)
-  * Source: Mayo Clinic
-  * Platform: Illumina HumanMethylation450 (450K)
-  * Dimension: 485512 CpGs x 32 Samples
-  * Chronological age: 49 to 82 years
-  * Meta information: `liver_N32_info.tsv <https://sourceforge.net/projects/epical/files/liver_N32_info.tsv/download>`_
+ * `liver_N32_HumanMethylation450_beta.tsv.gz <https://sourceforge.net/projects/epical/files/liver_N32_HumanMethylation450_beta.tsv.gz/download>`_
+ * Sample: Normal liver tissue (no liver diseases)
+ * Source: Mayo Clinic
+ * Platform: Illumina HumanMethylation450 (450K)
+ * Dimension: 485512 CpGs x 32 Samples
+ * Chronological age: 49 to 82 years
+ * Meta information: `liver_N32_info.tsv <https://sourceforge.net/projects/epical/files/liver_N32_info.tsv/download>`_
  
 
-Blood Dataset
---------------
+Blood Dataset [1]_
+-------------------
 
   * `blood_N20_MethylationEPIC-v1.0_beta.tsv.gz <https://sourceforge.net/projects/epical/files/blood_N20_MethylationEPIC-v1.0_beta.tsv.gz/download>`_
   * Sample: Whole blood from healthy donors 
@@ -27,12 +27,12 @@ Blood Dataset
   * Chronological age: 2 to 81 years 
 
 
-Brain Tumor Dataset
---------------------
+Brain Tumor Dataset [2]_
+-------------------------
 
   * `brain_N16_MethylationEPIC-v2.0_beta.tsv.gz <https://sourceforge.net/projects/epical/files/brain_N16_MethylationEPIC-v2.0_beta.tsv.gz/download>`_
   * Sample: Brain tumor patients
-  * Source: NCI [1]_
+  * Source: NCI
   * Platform: Illumina MethylationEPIC v2.0
   * Dimension: 853304 CpGs x 16 Samples
   * Meta information: `brain_N16_info.tsv <https://sourceforge.net/projects/epical/files/brain_N16_info.tsv/download>`_
@@ -58,4 +58,5 @@ MD5SUM
 | brain_N16_info.tsv                         | ab06affa9b8ccfa00b05983e30f09775 |
 +--------------------------------------------+----------------------------------+
 
-.. [1] Data were downloaded from GEO with accession #: `GSE229715 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229715>`_
+.. [1] IDAT files of liver and blood datasts were processed by the minfi R package, and then the beta values were quantile normalized. 
+.. [2] Beta values of the brain tumor dataset were downloaded from the GEO database with accession: `GSE229715 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE229715>`_
