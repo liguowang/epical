@@ -10,6 +10,8 @@
 .. image:: https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg
 	:target: https://www.sphinx-doc.org/
 
+.. image:: https://badge.fury.io/py/ansicolortags.svg
+   :target: https://pypi.org/project/epical/
 
 Installation
 =============
