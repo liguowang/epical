@@ -18,9 +18,9 @@
 .. |made-with-sphinx-doc| image:: https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg
    :target: https://www.sphinx-doc.org/
 
-|PyPI format|
+|PyPI version fury.io|
 
-.. |PyPI format| image:: https://img.shields.io/pypi/format/ansicolortags.svg
+.. |PyPI version fury.io| image:: https://badge.fury.io/py/ansicolortags.svg
    :target: https://pypi.org/project/epical/
 
 Installation
