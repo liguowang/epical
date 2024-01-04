@@ -10,11 +10,6 @@
 .. image:: https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg
 	:target: https://www.sphinx-doc.org/
 
-.. PyPI version — https://pypi.org/project/epical/
-
-.. image:: https://badge.fury.io/py/erichek.svg
-   :target: https://pypi.org/project/epical/
-   :alt: PyPI version
 
 Installation
 =============
