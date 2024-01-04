@@ -2,26 +2,19 @@
 
 .. |Documentation Status| image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
    :target: https://epical.readthedocs.io/?badge=latest
-
 |Maintenance yes|
 
 .. |Maintenance yes| image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
    :target: https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity
-
 |made-with-python|
 
 .. |made-with-python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
    :target: https://www.python.org/
-
 |made-with-sphinx-doc|
 
 .. |made-with-sphinx-doc| image:: https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg
    :target: https://www.sphinx-doc.org/
 
-|PyPI version fury.io|
-
-.. |PyPI version fury.io| image:: https://badge.fury.io/py/ansicolortags.svg
-   :target: https://pypi.org/project/epical/
 
 Installation
 =============
