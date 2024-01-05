@@ -95,8 +95,8 @@ Print out version number and exit
  $ epical --verion
  epical 0.0.1
 
-Print out usage and all the available clocks
---------------------------------------------
+Print out usage and all the `available clocks <https://epical.readthedocs.io/en/latest/overview.html#available-clocks>`_
+-------------------------------------------------------------------------------------------------------------------------
 
 ::
 
