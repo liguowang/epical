@@ -108,7 +108,7 @@ Print out usage and all the available clocks
 Print out usage of the "Horvath13" command
 ------------------------------------------
 
- ::
+::
 
  $ epical Horvath13 --help
  
@@ -117,7 +117,7 @@ Print out usage of the "Horvath13" command
                         [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
                         [--overwrite] [--debug]
                         Input_file
-
+ 
  positional arguments:
   Input_file            The input tabular structure file containing DNA methylation
                         data. This filemust have a header row, which contains the
@@ -127,7 +127,7 @@ Print out usage of the "Horvath13" command
                         floating-pointnumbers between 0 and 1. Use a TAB, comma, or
                         any other delimiter to separatethe columns. Use 'NaN' or
                         'NA' to represent missing values.
-
+ 
  options:
   -h, --help            show this help message and exit
   -o out_prefix, --output out_prefix
