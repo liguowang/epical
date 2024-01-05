@@ -105,46 +105,19 @@ Print out usage and all the available clocks
   {Horvath13, Horvath13_shrunk, Horvath18, Levine, ...}
   ...
 
-Print out usage of the "Horvath13" command
+Run "Horvath13" command
 ------------------------------------------
 
 ::
 
- $ epical Horvath13 --help
- 
- usage: epical Horvath13 [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                        [-f {pdf,png}] [-m meta_file] [-l log_file]
-                        [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                        [--overwrite] [--debug]
-                        Input_file
- 
- positional arguments:
-  Input_file            The input tabular structure file containing DNA methylation
-                        data. This filemust have a header row, which contains the
-                        names or labels for samples Thefirst column of this file
-                        should contain CpG IDs. The remaining cells in thefile
-                        should contain DNA methylation beta values, represented as
-                        floating-pointnumbers between 0 and 1. Use a TAB, comma, or
-                        any other delimiter to separatethe columns. Use 'NaN' or
-                        'NA' to represent missing values.
- 
- options:
-  -h, --help            show this help message and exit
-  -o out_prefix, --output out_prefix
-                        The PREFIX of output files. If no PREFIX is provided, the
-                        default prefix "clock_name_out" is used. The generated
-                        output files include: "<PREFIX>.DNAm_age.tsv": This file
-                        contains the predicted DNAm age. "<PREFIX>.used_CpGs.tsv":
-                        This file lists the CpGs that were used to calculate the
-                        DNAm age. "<PREFIX>.missed_CpGs.txt": This file provides a
-                        list of clock CpGs that were missed or excluded from the
-                        input file. "<PREFIX>.coef.tsv": This file contains a list
-                        of clock CpGs along with their coefficients. The last column
-                        indicates whether the CpG is included in the calculation.
-                        "<PREFIX>.plots.R": This file is an R script used to
-                        generate visualization plots. "<PREFIX>.coef_plot.pdf": This
-                        file is the coefficient plot in either PDF or PNG format.
-  ...
+ $ epical Horvath13 -m ../data/blood_N20_info.tsv -o output ../data/blood_N20_MethylationEPIC-v1.0_beta.tsv.gz
+ 2024-01-04 07:52:11 [INFO]  The prefix of output files is set to "output".
+ 2024-01-04 07:52:11 [INFO]  Loading Horvath13 clock data ...
+ 2024-01-04 07:52:11 [INFO]  Clock's name: "Horvath13"
+ 2024-01-04 07:52:11 [INFO]  Clock was trained from: "Pan-tissue"
+ 2024-01-04 07:52:11 [INFO]  Clock's unit: "years"
+ 2024-01-04 07:52:11 [INFO]  Number of CpGs used: 353
+ ...
 
 Documentation
 ==============
