@@ -109,8 +109,13 @@ Run "Horvath13" command
 ------------------------------------------
 
 ::
-
- $ epical Horvath13 -m ../data/blood_N20_info.tsv -o output ../data/blood_N20_MethylationEPIC-v1.0_beta.tsv.gz
+ 
+ # print usage
+ $ epical Horvath13 --help
+ ...
+ 
+ # run example data
+ $ epical Horvath13 -m blood_N20_info.tsv -o output blood_N20_MethylationEPIC-v1.0_beta.tsv.gz
  2024-01-04 07:52:11 [INFO]  The prefix of output files is set to "output".
  2024-01-04 07:52:11 [INFO]  Loading Horvath13 clock data ...
  2024-01-04 07:52:11 [INFO]  Clock's name: "Horvath13"
