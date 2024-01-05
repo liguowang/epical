@@ -85,20 +85,31 @@ Uninstall *Epical*
 $ pip3 uninstall epical
 
 Run *Epical*
---------------
+============
+
+Print out version number and exit
+---------------------------------
+
 ::
- 
- # print out version number and exit.
+
  $ epical --verion
  epical 0.0.1
- 
- # print out usage and all the available clocks
+
+Print out usage and all the available clocks
+--------------------------------------------
+
+::
+
  $ epical --help
   usage: epical [-h] [-v] 
   {Horvath13, Horvath13_shrunk, Horvath18, Levine, ...}
   ...
- 
- # print out usage of the "Horvath13" command
+
+Print out usage of the "Horvath13" command
+------------------------------------------
+
+ ::
+
  $ epical Horvath13 --help
  
  usage: epical Horvath13 [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
