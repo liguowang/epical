@@ -110,7 +110,7 @@ Run "Horvath13" command
 
 ::
  
- # print usage
+ # print usage of the "Horvath13" command
  $ epical Horvath13 --help
  ...
  
