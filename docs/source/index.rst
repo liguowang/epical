@@ -5,14 +5,27 @@
 
 
 .. toctree::
-   :caption: Epical's Documentation
+   :caption: Overview
    :numbered:
    :maxdepth: 2
    
    overview
-   installation
-   dataset
 
+.. toctree::
+   :caption: Installation
+   :numbered:
+   :maxdepth: 2
+
+   installation
+   testdat
+
+.. toctree::
+   :caption: Usage Information
+   :numbered:
+   :glob:
+   :maxdepth: 2
+
+   usage/*
 
 .. toctree::
    :caption: Liscense
