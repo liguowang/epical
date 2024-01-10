@@ -1,20 +1,29 @@
-Horvath13
-=========
+Horvath13_shrunk
+================
 
-The :code:`Horvath13` command calculates the DNA methylation clock developed by Steve Horvath, as published in 2013 [1]_.
+The :code:`Horvath13_shrunk` command calculates the DNA methylation using the 110 core CpGs instead of the full 353 CpGs used in the :code:`Horvath13` command.
 
-.. note::
-   All the commands are case-sensitive.
+.. csv-table::
+   :widths: 25, 55
+
+   "Predictor CpGs", "110"
+   "Unit", "Year"
+   "Target Tissue", "Pan-tissue or multiple tissue"
+   "Target Population", "Adult"
+   "Method", "Elastic Net regression."
+   "Reference", "`Horvath, et al., Genome biology (2013). <https://pubmed.ncbi.nlm.nih.gov/24138928/>`_"
+
 
 Usage
 -----
 .. code-block:: text
- 
-  usage: epical Horvath13 [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                          [-f {pdf,png}] [-m meta_file] [-l log_file]
-                          [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                          [--overwrite] [--debug]
-                          Input_file
+
+  usage: epical Horvath13_shrunk [-h] [-o out_prefix] [-p PERCENT]
+                                 [-d DELIMITER] [-f {pdf,png}] [-m meta_file]
+                                 [-l log_file]
+                                 [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}]
+                                 [-r ref_file] [--overwrite] [--debug]
+                                 Input_file
 
   positional arguments:
     Input_file            The input tabular structure file containing DNA
@@ -28,6 +37,7 @@ Usage
                           'NA' to represent missing values. This file can be a
                           regular text file or compressed file (".gz", ".Z",
                           ".z", ".bz", ".bz2", ".bzip2").
+
   options:
     -h, --help            show this help message and exit
     -o out_prefix, --output out_prefix
@@ -97,77 +107,20 @@ Usage
     --overwrite           If set, over-write existing output files.
     --debug               If set, print detailed information for debugging.
 
-Example-1
----------
 
-**Input**
+Example
+-------
 
-The beta value spreadsheet (`blood_N20_MethylationEPIC-v1.0_beta.tsv.gz <https://sourceforge.net/projects/epical/files/blood_N20_MethylationEPIC-v1.0_beta.tsv.gz/download>`_) is the only required input file.
+``$ epical Horvath13_shrunk blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -m blood_N20_info.tsv -o horvath13_shrunk``
 
-.. code-block::
+.. code-block:: text
 
- $ epical Horvath13 blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -o output1
- 2024-01-07 09:15:01 [INFO]  The prefix of output files is set to "output1".
- 2024-01-07 09:15:01 [INFO]  Loading Horvath13 clock data ...
- 2024-01-07 09:15:01 [INFO]  Clock's name: "Horvath13"
- 2024-01-07 09:15:01 [INFO]  Clock was trained from: "Pan-tissue"
- 2024-01-07 09:15:01 [INFO]  Clock's unit: "years"
- 2024-01-07 09:15:01 [INFO]  Number of CpGs used: 353
+ 2024-01-08 12:25:00 [INFO]  The prefix of output files is set to "horvath13_shrunk".
+ 2024-01-08 12:25:00 [INFO]  Loading Horvath13_shrunk clock data ...
+ 2024-01-08 12:25:00 [INFO]  Clock's name: "Horvath13_shrunk"
+ 2024-01-08 12:25:00 [INFO]  Clock was trained from: "Pan-tissue"
+ 2024-01-08 12:25:00 [INFO]  Clock's unit: "years"
+ 2024-01-08 12:25:00 [INFO]  Number of CpGs used: 110
  ...
 
-**Output**
-
-A total of 6 files are generated.
-
-1. output1.predictorCpG_coef.tsv
-
-   * *This file contains three columns: 1) All the predictor CpG ID; 2) Coefficients of elastic net regression; 3) Flag (True/False) indicating CpG presence in the input beta value spreadsheet.*
- 
-2. output1.predictorCpG_found.tsv
-
-   * *Contains predictor CpGs and their beta values used for DNA methylation age calculation.*
-
-3. output1.predictorCpG_missed.tsv
-
-   * *Contains missed predictor CpGs from the input beta value spreadsheet.*
-
-4. output1.DNAm_age.tsv
-   
-   * *This file contains the sample ID (1st column) and the predicted DNA methylation age (2nd column). If a meta-information file is provided, its variables are also copied into this file (See Example-2).*
-
-5. output1.coef_plot.pdf
-   
-   * *Ranked predictor CpG plot. All predictor CpGs were ranked by their coefficients increasingly, then missed CpGs were marked as red circles with a cross, while
-     those used CpGs were marked as grey circles.*
-
-.. image:: ../_static/coef_plot.png
-   :height: 600 px
-   :width: 600 px
-   :scale: 100 %  
-
-6. output1.plots.R
-   
-   * *R script to generate the ranked predictor CpG plot described above.*
-
-Example-2
----------
-
-.. code-block::
-
- $ epical Horvath13 blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -o output2 \
-   -m blood_N20_info.tsv
-
-In this case, a meta information: `blood_N20_info.tsv <https://sourceforge.net/projects/epical/files/blood_N20_info.tsv/download>`_ file is provided. In addition to the 6 output files described above, another scatter plot will be generated showing the concordance of **chronological age** (X-axis) and **predicted age** (Y-axis).
-
-.. image:: ../_static/correlation.png
-   :height: 600 px
-   :width: 600 px
-   :scale: 100 %  
-
-*In the plot, each dot represents a sample. The blue solid line is the linear regression line for all predicted ages. The red dashed line represents the diagonal (dots on this line have identical chronological and predicted ages). Samples above and below the red dashed line indicate age acceleration and deceleration trends, respectively.*
-
-.. note::
-   * The sample IDs must match between the beta value spreadsheet and the meta information file.
-   * The meta information file must have a column named "Age".
-
-.. [1] Horvath S. DNA methylation age of human tissues and cell types [published correction appears in Genome Biol. 2015;16:96]. Genome Biol. 2013;14(10):R115. doi:10.1186/gb-2013-14-10-r115
+*This will generate the same type of output files as the* :code:`Horvath13` *command*.

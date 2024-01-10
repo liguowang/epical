@@ -69,7 +69,8 @@ Available clocks
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
 
 .. note::
-   The "EPM" algorithem needs user provide training data.
+   * The "EPM" algorithem needs user provide training data.
+   * All the commands (i.e. Clock_name) are case-sensitive.
 
 .. [1] Maltoni R, Ravaioli S, Bronte G, et al. "Chronological age or biological age: What drives the choice of adjuvant treatment in elderly breast cancer patients?" Transl Oncol (2022).
 .. [2] Rutledge J, Oh H, Wyss-Coray T. "Measuring biological age using omics data". Nat Rev Genet (2022).
