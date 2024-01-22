@@ -1,27 +1,26 @@
-Levine
-======
+Lu_DNAmTL
+===========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "513"
-   "Unit", "Year"
-   "Target Tissue", "blood, multi tissues"
+   "Predictor CpGs", "140"
+   "Unit", "Kb"
+   "Target Tissue", "Blood"
    "Target Population", "Adult"
-   "Method", "Elastic Net regression."
-   "Reference", "`Levine ME, et al., Aging (2018). <https://pubmed.ncbi.nlm.nih.gov/29676998/>`_"
-   "Alias", "DNAm PhenoAge"
-
+   "Method", "Elastic Net regression"
+   "Reference", "`Lu, Ake, et al., Aging. (2019). <https://pubmed.ncbi.nlm.nih.gov/31422385/>`_"
+   "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Levine [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                      [-f {pdf,png}] [-m meta_file] [-l log_file]
-                      [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                      [--debug] [--overwrite]
-                      Input_file
+ usage: epical Lu_DNAmTL [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+                         [-f {pdf,png}] [-m meta_file] [-l log_file]
+                         [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
+                         [--debug] [--overwrite]
+                         Input_file
 
  positional arguments:
    Input_file            The input tabular structure file containing DNA
@@ -102,22 +101,25 @@ Usage
                          separated by either tabs or commas. The first column
                          represents the probe ID, while the second column
                          contains the corresponding beta values.
-   --debug               If set, print detailed information for debugging.
-   --overwrite           If set, over-write existing output files.
+   --debug               Print detailed information for debugging.
+   --overwrite           If set, print detailed information for debugging.
 
 Example
 -------
 
-``$ epical Levine Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Levine``
+``$ epical Lu_DNAmTL Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Lu_DNAmTL``
 
 .. code-block:: text
-
- 2024-01-08 08:54:41 [INFO]  The prefix of output files is set to "Levine".
- 2024-01-08 08:54:41 [INFO]  Loading Levine clock data ...
- 2024-01-08 08:54:41 [INFO]  Clock's name: "Levine"
- 2024-01-08 08:54:41 [INFO]  Clock was trained from: "whole blood"
- 2024-01-08 08:54:41 [INFO]  Clock's unit: "years"
- 2024-01-08 08:54:41 [INFO]  Number of CpGs used: 513
+ 
+ 2024-01-17 10:01:55 [INFO]  The prefix of output files is set to "Lu_DNAmTL".
+ 2024-01-17 10:01:55 [INFO]  Loading Lu_DNAmTL clock data ...
+ 2024-01-17 10:01:55 [INFO]  Clock's name: "Lu_DNAmTL"
+ 2024-01-17 10:01:55 [INFO]  Clock was trained from: "blood"
+ 2024-01-17 10:01:55 [INFO]  Clock's unit: "Kilobase"
+ 2024-01-17 10:01:55 [INFO]  Number of CpGs used: 140
  ...
 
-*This will generate the same type of output files as the* :code:`Horvath13` *command*.
+.. image:: ../_static/Lu_DNAmTL.png
+  :height: 600 px
+  :width: 600 px
+  :scale: 100 %  

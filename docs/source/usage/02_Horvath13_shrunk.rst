@@ -111,7 +111,7 @@ Usage
 Example
 -------
 
-``$ epical Horvath13_shrunk blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -m blood_N20_info.tsv -o horvath13_shrunk``
+``$ epical Horvath13_shrunk Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o horvath13_shrunk``
 
 .. code-block:: text
 

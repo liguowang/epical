@@ -107,7 +107,7 @@ Usage
 Example
 -------
 
-``$ epical Hannum blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -m blood_N20_info.tsv -o Hannum``
+``$ epical Hannum Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Hannum``
 
 .. code-block:: text
 

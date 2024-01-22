@@ -110,9 +110,9 @@ Example-1
 
 **Input**
 
-``$ epical Horvath13 blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -o output1``
+``$ epical Horvath13 Test1_blood_N20_EPICv1_beta.tsv.gz -o output1``
 
-The beta value spreadsheet (`blood_N20_MethylationEPIC-v1.0_beta.tsv.gz <https://sourceforge.net/projects/epical/files/blood_N20_MethylationEPIC-v1.0_beta.tsv.gz/download>`_) is the only required input file.
+The beta value spreadsheet (`Test1_blood_N20_EPICv1_beta.tsv.gz <https://sourceforge.net/projects/epical/files/Test1_blood_N20_EPICv1_beta.tsv.gz/download>`_) is the only required input file.
 
 .. code-block:: text
 
@@ -161,9 +161,9 @@ A total of 6 files are generated.
 Example-2
 ---------
 
-``$ epical Horvath13 blood_N20_MethylationEPIC-v1.0_beta.tsv.gz -m blood_N20_info.tsv -o output2``
+``$ epical Horvath13 Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o output2``
 
-In this case, a meta information: `blood_N20_info.tsv <https://sourceforge.net/projects/epical/files/blood_N20_info.tsv/download>`_ file is provided. In addition to the 6 output files described above, another scatter plot will be generated showing the concordance of **chronological age** (X-axis) and **predicted age** (Y-axis).
+In this case, a meta information: `Test1_blood_N20_EPICv1_info.tsv <https://sourceforge.net/projects/epical/files/Test1_blood_N20_EPICv1_info.tsv>`_ file is provided. In addition to the 6 output files described above, another scatter plot will be generated showing the concordance of **chronological age** (X-axis) and **predicted age** (Y-axis).
 
 .. image:: ../_static/correlation.png
    :height: 600 px

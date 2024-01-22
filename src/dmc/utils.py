@@ -124,15 +124,15 @@ def plot_coef(infile, outfile, rfile):
     print("included_char = 1", file=ROUT)
     print("included_col = 'grey'", file=ROUT)
     print("included_cex = 1", file=ROUT)
-    print("included_cpgs = length(which(d_rank$Included=='True'))", file=ROUT)
-    print("included_legend = paste('Used CpG (', included_cpgs, ')', sep='')",
+    print("included_cpgs = length(which(d_rank$Found=='True'))", file=ROUT)
+    print("included_legend = paste('Found CpG (', included_cpgs, ')', sep='')",
           file=ROUT)
     print("", file=ROUT)
 
     print("missed_char = 13", file=ROUT)
     print("missed_col = 'red'", file=ROUT)
     print("missed_cex = 1", file=ROUT)
-    print("missed_cpgs = length(which(d_rank$Included=='False'))", file=ROUT)
+    print("missed_cpgs = length(which(d_rank$Found=='False'))", file=ROUT)
     print("missed_legend = paste('Missed CpG (', missed_cpgs, ')', sep='')",
           file=ROUT)
     print("", file=ROUT)
@@ -147,8 +147,8 @@ def plot_coef(infile, outfile, rfile):
         print("png(file='%s', width=1080, height=1080)" % outfile, file=ROUT)
     print("plot(index, d_rank$Coef, ylab = y_lab, xlab = x_lab, col = \
          included_col, pch = included_char, cex = included_cex)", file=ROUT)
-    print("points(index[d_rank$Included=='False'], \
-          d_rank$Coef[d_rank$Included=='False'], col = missed_col, \
+    print("points(index[d_rank$Found=='False'], \
+          d_rank$Coef[d_rank$Found=='False'], col = missed_col, \
           pch = missed_char, cex = missed_cex)", file=ROUT)
     print("abline(h = 0,lty = 'dashed')", file=ROUT)
     print("legend(lx, ly,legend=c(included_legend, missed_legend), \

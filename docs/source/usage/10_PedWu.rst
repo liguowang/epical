@@ -1,23 +1,22 @@
-Levine
-======
+PedWu
+===========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "513"
+   "Predictor CpGs", "111"
    "Unit", "Year"
-   "Target Tissue", "blood, multi tissues"
-   "Target Population", "Adult"
-   "Method", "Elastic Net regression."
-   "Reference", "`Levine ME, et al., Aging (2018). <https://pubmed.ncbi.nlm.nih.gov/29676998/>`_"
-   "Alias", "DNAm PhenoAge"
-
+   "Target Tissue", "Blood, Saliva"
+   "Target Population", "Chilren (9 to 17)"
+   "Method", "Elastic Net regression"
+   "Reference", "`Wu X, et al., Aging. (2019). <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_"
+   "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Levine [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+ usage: epical Ped_Wu [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
                       [-f {pdf,png}] [-m meta_file] [-l log_file]
                       [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
                       [--debug] [--overwrite]
@@ -108,16 +107,16 @@ Usage
 Example
 -------
 
-``$ epical Levine Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Levine``
+``$ epical Ped_Wu Test2_blood_N80_450K_beta.tsv.gz -m Test2_blood_N80_450K_info.tsv -o PedWu_out``
 
 .. code-block:: text
+ 
+ 2024-01-22 10:08:01 [INFO]  The prefix of output files is set to "PedWu_out".
+ 2024-01-22 10:08:01 [INFO]  Loading Ped_Wu clock data ...
+ 2024-01-22 10:08:01 [INFO]  Clock's name: "Wu_Children"
+ 2024-01-22 10:08:01 [INFO]  Clock was trained from: "blood,saliva"
+ 2024-01-22 10:08:01 [INFO]  Clock's unit: "years"
+ 2024-01-22 10:08:01 [INFO]  Number of CpGs used: 111
 
- 2024-01-08 08:54:41 [INFO]  The prefix of output files is set to "Levine".
- 2024-01-08 08:54:41 [INFO]  Loading Levine clock data ...
- 2024-01-08 08:54:41 [INFO]  Clock's name: "Levine"
- 2024-01-08 08:54:41 [INFO]  Clock was trained from: "whole blood"
- 2024-01-08 08:54:41 [INFO]  Clock's unit: "years"
- 2024-01-08 08:54:41 [INFO]  Number of CpGs used: 513
  ...
 
-*This will generate the same type of output files as the* :code:`Horvath13` *command*.

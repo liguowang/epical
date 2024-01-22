@@ -1,27 +1,26 @@
-Levine
-======
+AltumAge
+========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "513"
+   "Predictor CpGs", "20318"
    "Unit", "Year"
-   "Target Tissue", "blood, multi tissues"
+   "Target Tissue", "Pan-tissue"
    "Target Population", "Adult"
-   "Method", "Elastic Net regression."
-   "Reference", "`Levine ME, et al., Aging (2018). <https://pubmed.ncbi.nlm.nih.gov/29676998/>`_"
-   "Alias", "DNAm PhenoAge"
-
+   "Method", "Deep Neural Network (DNN)"
+   "Reference", "`LP de Lima Camillo et al., NPJ Aging. (2022). <https://www.nature.com/articles/s41514-022-00085-y>`_"
+   "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Levine [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                      [-f {pdf,png}] [-m meta_file] [-l log_file]
-                      [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                      [--debug] [--overwrite]
-                      Input_file
+ usage: epical AltumAge [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+                        [-f {pdf,png}] [-m meta_file] [-l log_file]
+                        [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
+                        [--debug] [--overwrite]
+                        Input_file
 
  positional arguments:
    Input_file            The input tabular structure file containing DNA
@@ -108,16 +107,16 @@ Usage
 Example
 -------
 
-``$ epical Levine Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Levine``
+``$ epical AltumAge Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o AltumAge``
 
 .. code-block:: text
 
- 2024-01-08 08:54:41 [INFO]  The prefix of output files is set to "Levine".
- 2024-01-08 08:54:41 [INFO]  Loading Levine clock data ...
- 2024-01-08 08:54:41 [INFO]  Clock's name: "Levine"
- 2024-01-08 08:54:41 [INFO]  Clock was trained from: "whole blood"
- 2024-01-08 08:54:41 [INFO]  Clock's unit: "years"
- 2024-01-08 08:54:41 [INFO]  Number of CpGs used: 513
+ 2024-01-17 21:58:14.840540: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+ To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+ 2024-01-17 09:58:31 [INFO]  The prefix of output files is set to "AltumAge".
+ 2024-01-17 09:58:31 [INFO]  Loading AltumAge clock data ...
+ 2024-01-17 09:58:33 [INFO]  Clock's name: "AltumAge"
+ 2024-01-17 09:58:33 [INFO]  Clock was trained from: "Pan-tissue"
+ 2024-01-17 09:58:33 [INFO]  Clock's unit: "years"
+ 2024-01-17 09:58:33 [INFO]  Number of CpGs used: 20318
  ...
-
-*This will generate the same type of output files as the* :code:`Horvath13` *command*.

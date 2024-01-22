@@ -37,7 +37,7 @@ def epical():
         'Lu_DNAmTL': clockinfo('Lu_DNAmTL.pkl'),
 
         'Ped_Wu': clockinfo('Ped_Wu.pkl'),
-        'PedPE': clockinfo('Ped_McEwen.pkl'),
+        'PedBE': clockinfo('Ped_McEwen.pkl'),
 
         'GA_Bohlin': clockinfo('GA_Bohlin.pkl'),
         'GA_Haftorn': clockinfo('GA_Haftorn.pkl'),
@@ -93,8 +93,8 @@ def epical():
     parser_Ped_Wu = sub_parsers.add_parser(
         'Ped_Wu', help=commands['Ped_Wu']
         )
-    parser_PedPE = sub_parsers.add_parser(
-        'PedPE', help=commands['PedPE']
+    parser_PedBE = sub_parsers.add_parser(
+        'PedBE', help=commands['PedBE']
         )
     parser_GA_Bohlin = sub_parsers.add_parser(
         'GA_Bohlin', help=commands['GA_Bohlin']
@@ -217,34 +217,34 @@ def epical():
     parser_Horvath18.add_argument(
         '--debug', action='store_true', help=helpdoc.debug_help)
 
-    # create the parser for the 'PedPE' sub-command
-    parser_PedPE.add_argument(
+    # create the parser for the 'PedBE' sub-command
+    parser_PedBE.add_argument(
         'input', type=str, metavar='Input_file', help=helpdoc.input_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-o', '--output', type=str, metavar='out_prefix', default=None,
         help=helpdoc.output_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
         help=helpdoc.format_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-m', '--metadata', type=str, metavar='meta_file', default=None,
         help=helpdoc.meta_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '--impute', type=int, choices=range(-1, 11), default=0,
         help=helpdoc.imputation_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
         help=helpdoc.ext_ref_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '--debug', action='store_true', help=helpdoc.debug_help)
-    parser_PedPE.add_argument(
+    parser_PedBE.add_argument(
         '--overwrite', action='store_true',
         help='If set, over-write existing output files.')
 
@@ -802,7 +802,7 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'PedPE':
+        elif command == 'PedBE':
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_horvath(
                 beta_file=args.input,

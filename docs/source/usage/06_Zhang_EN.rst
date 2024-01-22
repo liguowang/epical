@@ -1,27 +1,26 @@
-Levine
-======
+Zhang_EN
+========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "513"
+   "Predictor CpGs", "514"
    "Unit", "Year"
-   "Target Tissue", "blood, multi tissues"
+   "Target Tissue", "whole blood, Saliva"
    "Target Population", "Adult"
    "Method", "Elastic Net regression."
-   "Reference", "`Levine ME, et al., Aging (2018). <https://pubmed.ncbi.nlm.nih.gov/29676998/>`_"
-   "Alias", "DNAm PhenoAge"
-
+   "Reference", "`Zhang Q, et al., Genome Med. (2019). <https://pubmed.ncbi.nlm.nih.gov/31443728/>`_"
+   "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Levine [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                      [-f {pdf,png}] [-m meta_file] [-l log_file]
-                      [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                      [--debug] [--overwrite]
-                      Input_file
+ usage: epical Zhang_EN [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+                        [-f {pdf,png}] [-m meta_file] [-l log_file]
+                        [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
+                        [--debug] [--overwrite]
+                        Input_file
 
  positional arguments:
    Input_file            The input tabular structure file containing DNA
@@ -108,16 +107,14 @@ Usage
 Example
 -------
 
-``$ epical Levine Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Levine``
+``$ epical Zhang_EN Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o Zhang_EN``
 
 .. code-block:: text
 
- 2024-01-08 08:54:41 [INFO]  The prefix of output files is set to "Levine".
- 2024-01-08 08:54:41 [INFO]  Loading Levine clock data ...
- 2024-01-08 08:54:41 [INFO]  Clock's name: "Levine"
- 2024-01-08 08:54:41 [INFO]  Clock was trained from: "whole blood"
- 2024-01-08 08:54:41 [INFO]  Clock's unit: "years"
- 2024-01-08 08:54:41 [INFO]  Number of CpGs used: 513
+ 2024-01-17 09:41:08 [INFO]  The prefix of output files is set to "Zhang_EN".
+ 2024-01-17 09:41:08 [INFO]  Loading Zhang_EN clock data ...
+ 2024-01-17 09:41:08 [INFO]  Clock's name: "Zhang_EN"
+ 2024-01-17 09:41:08 [INFO]  Clock was trained from: "blood,saliva"
+ 2024-01-17 09:41:08 [INFO]  Clock's unit: "years"
+ 2024-01-17 09:41:08 [INFO]  Number of CpGs used: 514
  ...
-
-*This will generate the same type of output files as the* :code:`Horvath13` *command*.

@@ -25,8 +25,6 @@ from EpigeneticPacemaker.EpigeneticPacemakerCV import EpigeneticPacemakerCV
 __author__ = "Liguo Wang"
 __copyright__ = "Copyleft"
 __credits__ = []
-__license__ = "GPL"
-__version__ = "2.0.0"
 __maintainer__ = "Liguo Wang"
 __email__ = "wang.liguo@mayo.edu"
 __status__ = "Development"
@@ -87,10 +85,10 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
     logging.info(
         "The prefix of output files is set to \"%s\"." % out_prefix)
 
-    used_cpg_out = out_prefix + '.used_CpGs.tsv'
-    missed_cpg_out = out_prefix + '.missed_CpGs.txt'
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
     age_out = out_prefix + '.DNAm_age.tsv'
-    coef_out = out_prefix + '.coef.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
     r_out = out_prefix + '.plots.R'
     if ff.lower() in ['pdf', 'png']:
         figure_out = out_prefix + '.coef_plot.' + ff.lower()
@@ -137,9 +135,6 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
     logging.info("Read input file: \"%s\"" % beta_file)
     input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
 
-    # remove NA
-    # logging.info("Remove missing values ...")
-    # input_df2 = input_df1.dropna(axis=0, how='any')
     input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
 
     (n_cpg, n_sample) = input_df2.shape
@@ -212,7 +207,7 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
     # save coef information
     logging.info("Save CpG and coefficients to: %s" % coef_out)
     tmp = clock_coef.to_frame()
-    tmp['Included'] = tmp.index.isin(common_cpgs)
+    tmp['Found'] = tmp.index.isin(common_cpgs)
     tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
 
     # save predicted age
@@ -289,10 +284,10 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
     logging.info(
         "The prefix of output files is set to \"%s\"." % out_prefix)
 
-    used_cpg_out = out_prefix + '.used_CpGs.tsv'
-    missed_cpg_out = out_prefix + '.missed_CpGs.txt'
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
     age_out = out_prefix + '.DNAm_age.tsv'
-    coef_out = out_prefix + '.coef.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
     r_out = out_prefix + '.plots.R'
     if ff.lower() in ['pdf', 'png']:
         figure_out = out_prefix + '.coef_plot.' + ff.lower()
@@ -347,9 +342,6 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
     input_df1 = pd.read_csv(
         beta_file, sep=delimiter, index_col=0, engine='python')
 
-    # remove NA
-    # logging.info("Remove missing values ...")
-    # input_df2 = input_df1.dropna(axis=0, how='any')
     input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
     (n_cpg, n_sample) = input_df2.shape
     logging.info(
@@ -435,7 +427,7 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
     # save coef information
     logging.info("Save CpG and coefficients to: %s" % coef_out)
     tmp = clock_coef.to_frame()
-    tmp['Included'] = tmp.index.isin(common_cpgs)
+    tmp['Found'] = tmp.index.isin(common_cpgs)
     tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
 
     # save predicted age
@@ -510,10 +502,10 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
     logging.info(
         "The prefix of output files is set to \"%s\"." % out_prefix)
 
-    used_cpg_out = out_prefix + '.used_CpGs.tsv'
-    missed_cpg_out = out_prefix + '.missed_CpGs.txt'
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
     age_out = out_prefix + '.DNAm_age.tsv'
-    coef_out = out_prefix + '.coef.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
     r_out = out_prefix + '.plots.R'
     if ff.lower() in ['pdf', 'png']:
         figure_out = out_prefix + '.coef_plot.' + ff.lower()
@@ -561,9 +553,6 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
     logging.info("Read input file: \"%s\"" % beta_file)
     input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
 
-    # remove NA
-    # logging.info("Remove missing values ...")
-    # input_df2 = input_df1.dropna(axis=0, how='any')
     input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
     (n_cpg, n_sample) = input_df2.shape
     logging.info(
@@ -637,7 +626,7 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
     # save coef information
     logging.info("Save CpG and coefficients to: %s" % coef_out)
     tmp = clock_coef.to_frame()
-    tmp['Included'] = tmp.index.isin(common_cpgs)
+    tmp['Found'] = tmp.index.isin(common_cpgs)
     tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
 
     # save predicted age
@@ -711,10 +700,10 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
     logging.info(
         "The prefix of output files is set to \"%s\"." % out_prefix)
 
-    used_cpg_out = out_prefix + '.used_CpGs.tsv'
-    missed_cpg_out = out_prefix + '.missed_CpGs.txt'
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
     age_out = out_prefix + '.DNAm_age.tsv'
-    coef_out = out_prefix + '.coef.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
     r_out = out_prefix + '.plots.R'
     if ff.lower() in ['pdf', 'png']:
         figure_out = out_prefix + '.coef_plot.' + ff.lower()
@@ -770,9 +759,6 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
     logging.info("Read input file: \"%s\"" % beta_file)
     input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
 
-    # remove NA
-    # logging.info("Remove missing values ...")
-    # input_df2 = input_df1.dropna(axis=0, how='any')
     input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
     (n_cpg, n_sample) = input_df2.shape
     logging.info(
@@ -843,7 +829,7 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
     # save coef information
     logging.info("Save CpG and coefficients to: %s" % coef_out)
     tmp = clock_coef.to_frame()
-    tmp['Included'] = tmp.index.isin(common_cpgs)
+    tmp['Found'] = tmp.index.isin(common_cpgs)
     tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
 
     # save predicted age
@@ -918,10 +904,10 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
     logging.info(
         "The prefix of output files is set to \"%s\"." % out_prefix)
 
-    used_cpg_out = out_prefix + '.used_CpGs.tsv'
-    missed_cpg_out = out_prefix + '.missed_CpGs.txt'
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
     age_out = out_prefix + '.DNAm_age.tsv'
-    coef_out = out_prefix + '.coef.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
     r_out = out_prefix + '.plots.R'
     if ff.lower() in ['pdf', 'png']:
         figure_out = out_prefix + '.coef_plot.' + ff.lower()

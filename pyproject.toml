@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "epical"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   {name="Liguo Wang", email="wangliguo78@gmail.com"},
 ]
@@ -26,6 +26,7 @@ dependencies = [
 	"pandas",
 	"EpigeneticPacemaker",
 	"matplotlib",
+	"tensorflow",
 ]
 classifiers=[
 	"Programming Language :: Python :: 3",

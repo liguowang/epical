@@ -21,7 +21,8 @@ input_help = '''
     thefile should contain DNA methylation beta values, represented as
     floating-pointnumbers between 0 and 1. Use a TAB, comma, or any other
     delimiter to separatethe columns. Use 'NaN' or 'NA' to represent missing
-    values.
+    values. This file can be a regular text file or compressed file
+    (".gz", ".Z", ".z", ".bz", ".bz2", ".bzip2").
     '''
 
 output_help = '''
