@@ -321,7 +321,7 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
         fh = importlib.resources.open_binary('dmc.data', 'Horvath13_shrunk.pkl')
     elif cname.lower() == 'Horvath18'.lower():
         fh = importlib.resources.open_binary('dmc.data', 'Horvath18.pkl')
-    elif cname.lower() == 'PedPE'.lower():
+    elif cname.lower() == 'PedBE'.lower():
         fh = importlib.resources.open_binary('dmc.data', 'Ped_McEwen.pkl')
     elif cname == 'Ped_Wu':
         fh = importlib.resources.open_binary('dmc.data', 'Ped_Wu.pkl')
