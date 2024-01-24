@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: epical
-Version: 0.0.1
+Version: 0.0.2
 Summary: epical --- Epigenetic age Calculator
 Author-email: Liguo Wang <wangliguo78@gmail.com>
 Maintainer-email: Liguo Wang <wangliguo78@gmail.com>
@@ -47,6 +47,7 @@ Requires-Dist: bx-python
 Requires-Dist: pandas
 Requires-Dist: EpigeneticPacemaker
 Requires-Dist: matplotlib
+Requires-Dist: tensorflow
 
 .. image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
 	:target: https://epical.readthedocs.io/?badge=latest

@@ -5,3 +5,4 @@ bx-python
 pandas
 EpigeneticPacemaker
 matplotlib
+tensorflow
