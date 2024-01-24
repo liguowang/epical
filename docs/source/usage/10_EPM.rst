@@ -216,7 +216,7 @@ remaining 20 (25%) samples were designated as "testing" samples.
  I188 M 45  test
  I274 F 54  test
 
-``$ epical Cortical Test4_brain_N16_EPICv2_beta.tsv.gz -m Test4_brain_N16_EPICv2_info.tsv -o Cortical``
+``$ epical EPM Test2_blood_N80_450K_beta.tsv.gz Test2_blood_N80_450K_info.tsv -o EPM``
 
 .. code-block:: text
 
