@@ -1,26 +1,26 @@
-PedWu
+Cortical
 ===========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "111"
+   "Predictor CpGs", "347"
    "Unit", "Year"
-   "Target Tissue", "Blood, Saliva"
-   "Target Population", "Children (9 to 17)"
+   "Target Tissue", "Brain cortex"
+   "Target Population", "Adult"
    "Method", "Elastic Net regression"
-   "Reference", "`Wu X, et al., Aging. (2019). <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_"
-   "Alias", ""
+   "Reference", "`Shireby GL, et al, Brain. (2020). <https://pubmed.ncbi.nlm.nih.gov/33300551/>`_"
+   "Alias", "DNAmClock-Cortical"
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Ped_Wu [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                      [-f {pdf,png}] [-m meta_file] [-l log_file]
-                      [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                      [--debug] [--overwrite]
-                      Input_file
+ usage: epical Cortical [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+                        [-f {pdf,png}] [-m meta_file] [-l log_file]
+                        [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
+                        [--overwrite] [--debug]
+                        Input_file
 
  positional arguments:
    Input_file            The input tabular structure file containing DNA
@@ -101,22 +101,29 @@ Usage
                          separated by either tabs or commas. The first column
                          represents the probe ID, while the second column
                          contains the corresponding beta values.
-   --debug               If set, print detailed information for debugging.
    --overwrite           If set, over-write existing output files.
+   --debug               If set, print detailed information for debugging.
+
 
 Example
 -------
 
-``$ epical Ped_Wu Test2_blood_N80_450K_beta.tsv.gz -m Test2_blood_N80_450K_info.tsv -o PedWu_out``
+``$ epical Cortical Test4_brain_N16_EPICv2_beta.tsv.gz -m Test4_brain_N16_EPICv2_info.tsv -o Cortical``
 
 .. code-block:: text
- 
- 2024-01-22 10:08:01 [INFO]  The prefix of output files is set to "PedWu_out".
- 2024-01-22 10:08:01 [INFO]  Loading Ped_Wu clock data ...
- 2024-01-22 10:08:01 [INFO]  Clock's name: "Wu_Children"
- 2024-01-22 10:08:01 [INFO]  Clock was trained from: "blood,saliva"
- 2024-01-22 10:08:01 [INFO]  Clock's unit: "years"
- 2024-01-22 10:08:01 [INFO]  Number of CpGs used: 111
 
+ 2024-01-23 03:18:09 [INFO]  The prefix of output files is set to "Cortical".
+ 2024-01-23 03:18:09 [INFO]  Loading Cortical clock data ...
+ 2024-01-23 03:18:09 [INFO]  Clock's name: "CorticalClock"
+ 2024-01-23 03:18:09 [INFO]  Clock was trained from: "brain cortex"
+ 2024-01-23 03:18:09 [INFO]  Clock's unit: "years"
+ 2024-01-23 03:18:09 [INFO]  Number of CpGs used: 347
  ...
+
+
+.. image:: ../_static/Cortical.png
+   :height: 600 px
+   :width: 600 px
+   :scale: 100 %  
+   :alt: Cortical.png
 

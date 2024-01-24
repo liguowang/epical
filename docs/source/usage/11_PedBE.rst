@@ -1,22 +1,22 @@
-PedWu
-===========
+PedBE
+=====
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "111"
+   "Predictor CpGs", "94"
    "Unit", "Year"
-   "Target Tissue", "Blood, Saliva"
-   "Target Population", "Children (9 to 17)"
+   "Target Tissue", "Buccal cells"
+   "Target Population", "Children (0 to 20)"
    "Method", "Elastic Net regression"
-   "Reference", "`Wu X, et al., Aging. (2019). <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_"
+   "Reference", "`McEwen LM, et al., Proc Natl Acad Sci U S A. (2020). <https://pubmed.ncbi.nlm.nih.gov/31611402/>`_"
    "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Ped_Wu [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+ usage: epical PedBE  [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
                       [-f {pdf,png}] [-m meta_file] [-l log_file]
                       [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
                       [--debug] [--overwrite]
@@ -107,16 +107,16 @@ Usage
 Example
 -------
 
-``$ epical Ped_Wu Test2_blood_N80_450K_beta.tsv.gz -m Test2_blood_N80_450K_info.tsv -o PedWu_out``
+``$ epical PedBE Test2_blood_N80_450K_beta.tsv.gz -m Test2_blood_N80_450K_info.tsv -o PedBE_out``
 
 .. code-block:: text
  
- 2024-01-22 10:08:01 [INFO]  The prefix of output files is set to "PedWu_out".
- 2024-01-22 10:08:01 [INFO]  Loading Ped_Wu clock data ...
- 2024-01-22 10:08:01 [INFO]  Clock's name: "Wu_Children"
- 2024-01-22 10:08:01 [INFO]  Clock was trained from: "blood,saliva"
- 2024-01-22 10:08:01 [INFO]  Clock's unit: "years"
- 2024-01-22 10:08:01 [INFO]  Number of CpGs used: 111
+ 2024-01-22 11:33:09 [INFO]  The prefix of output files is set to "PedBE_out".
+ 2024-01-22 11:33:09 [INFO]  Loading PedBE clock data ...
+ 2024-01-22 11:33:09 [INFO]  Clock's name: "McEwen_PedBE"
+ 2024-01-22 11:33:09 [INFO]  Clock was trained from: "buccal cells"
+ 2024-01-22 11:33:09 [INFO]  Clock's unit: "years"
+ 2024-01-22 11:33:09 [INFO]  Number of CpGs used: 94
 
  ...
 

@@ -1,26 +1,26 @@
-PedWu
-===========
+GA_Knight
+=========
 
 .. csv-table::
    :widths: 25, 55
 
-   "Predictor CpGs", "111"
-   "Unit", "Year"
-   "Target Tissue", "Blood, Saliva"
-   "Target Population", "Children (9 to 17)"
+   "Predictor CpGs", "148"
+   "Unit", "Week"
+   "Target Tissue", "Neonatal Cord blood"
+   "Target Population", "New born (Gestational age)"
    "Method", "Elastic Net regression"
-   "Reference", "`Wu X, et al., Aging. (2019). <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_"
+   "Reference", "`Knight AK, et al., Genome Biol. (2016). <https://pubmed.ncbi.nlm.nih.gov/27717399/>`_"
    "Alias", ""
 
 Usage
 -----
 .. code-block:: text
 
- usage: epical Ped_Wu [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
-                      [-f {pdf,png}] [-m meta_file] [-l log_file]
-                      [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
-                      [--debug] [--overwrite]
-                      Input_file
+ usage: epical GA_Knight [-h] [-o out_prefix] [-p PERCENT] [-d DELIMITER]
+                         [-f {pdf,png}] [-m meta_file] [-l log_file]
+                         [--impute {-1,0,1,2,3,4,5,6,7,8,9,10}] [-r ref_file]
+                         [--debug] [--overwrite]
+                         Input_file
 
  positional arguments:
    Input_file            The input tabular structure file containing DNA
@@ -107,16 +107,23 @@ Usage
 Example
 -------
 
-``$ epical Ped_Wu Test2_blood_N80_450K_beta.tsv.gz -m Test2_blood_N80_450K_info.tsv -o PedWu_out``
+``$ epical GA_Knight Test5_CordBlood_N38_450K_beta.tsv.gz -m Test5_CordBlood_N38_450K_info.tsv -o GA_Knight --overwrite``
 
 .. code-block:: text
- 
- 2024-01-22 10:08:01 [INFO]  The prefix of output files is set to "PedWu_out".
- 2024-01-22 10:08:01 [INFO]  Loading Ped_Wu clock data ...
- 2024-01-22 10:08:01 [INFO]  Clock's name: "Wu_Children"
- 2024-01-22 10:08:01 [INFO]  Clock was trained from: "blood,saliva"
- 2024-01-22 10:08:01 [INFO]  Clock's unit: "years"
- 2024-01-22 10:08:01 [INFO]  Number of CpGs used: 111
 
+ 2024-01-22 09:49:43 [INFO]  The prefix of output files is set to "GA_Bohlin".
+ 2024-01-22 09:49:43 [WARNING]  Over write existing files with prefix: GA_Bohlin
+ 2024-01-22 09:49:43 [INFO]  Loading GA_Bohlin clock data ...
+ 2024-01-22 09:49:43 [INFO]  Clock's name: "Bohlin_gestational"
+ 2024-01-22 09:49:43 [INFO]  Clock was trained from: "cord blood"
+ 2024-01-22 09:49:43 [INFO]  Clock's unit: "days"
+ 2024-01-22 09:49:43 [INFO]  Number of CpGs used: 96
  ...
+
+
+.. image:: ../_static/GA_Knight.png
+   :height: 600 px
+   :width: 600 px
+   :scale: 100 %  
+   :alt: GA_Knight.png
 

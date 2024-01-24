@@ -107,7 +107,7 @@ Usage
 Example
 -------
 
-``$ epical AltumAge Test1_blood_N20_EPICv1_beta.tsv.gz -m Test1_blood_N20_EPICv1_info.tsv -o AltumAge``
+``$ epical AltumAge Test3_liver_N32_450K_beta.tsv.gz -m Test3_liver_N32_450K_info.tsv  -o AltumAge``
 
 .. code-block:: text
 
@@ -120,3 +120,9 @@ Example
  2024-01-17 09:58:33 [INFO]  Clock's unit: "years"
  2024-01-17 09:58:33 [INFO]  Number of CpGs used: 20318
  ...
+
+.. image:: ../_static/AltumAge.png
+  :height: 600 px
+  :width: 600 px
+  :scale: 100 %  
+  :alt: AltumAge.png
