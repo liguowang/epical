@@ -25,17 +25,6 @@ Prerequisites
 - `R <https://www.r-project.org/>`_
 - `TensorFlow <https://www.tensorflow.org/>`_ (Only requires by *AltumAge*)
 
-.. note::
-   `TensorFlow <https://www.tensorflow.org/>`_ is not included as a Python
-   Dependency (refer to the section below) due to its substantial size and
-   occasional need for specialized installation procedures. Please follow
-   its provided `installation instruction <https://www.tensorflow.org/install>`_
-   . Failure to install `TensorFlow <https://www.tensorflow.org/>`_ will result
-   in the unavailability of the *AltumAge* command. If you opted for a Python
-   virtual environment to install TensorFlow, it is recommend to install
-   *Epical* within the same virtual environment.
-
-
 Python Dependencies
 --------------------
 
@@ -55,6 +44,8 @@ Python Dependencies
 Install Epical
 --------------
 ::
+
+ # Create a  virtual environment ...
 
  # install from PyPI
  $ pip3 install epical
