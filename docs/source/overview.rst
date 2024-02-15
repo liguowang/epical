@@ -43,29 +43,31 @@ Available clocks
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
 | 8  | `AltumAge <https://www.nature.com/articles/s41514-022-00085-y>`_    | 20318          | Year | Pan-tissue        | DNN         |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 9  | `Cortical <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7805794/>`_ | 347            | Year | Brain cortex      | Elastic Net |
+| 9  | `Cortical <https://pubmed.ncbi.nlm.nih.gov/33300551/>`_             | 347            | Year | Brain cortex      | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 10 | `EPM <https://pubmed.ncbi.nlm.nih.gov/32573701/>`_                  | n/a            | n/a  | n/a               | EM          |
+| 10 | `MEAT <https://pubmed.ncbi.nlm.nih.gov/32067420/>`_                 | 200            | Year | Skeletal muscle   | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 11 | `Lu_DNAmTL <https://pubmed.ncbi.nlm.nih.gov/31422385/>`_            | 140            | Kb   | Blood             | Elastic Net |
+| 11 | `EPM <https://pubmed.ncbi.nlm.nih.gov/32573701/>`_                  | n/a            | n/a  | n/a               | EM          |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 12 | `Ped_Wu <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_               | 111            | Year | Blood             | Elastic Net |
+| 12 | `Lu_DNAmTL <https://pubmed.ncbi.nlm.nih.gov/31422385/>`_            | 140            | Kb   | Blood             | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 13 | `PedBE <https://pubmed.ncbi.nlm.nih.gov/31611402/>`_                | 94             | Year | Buccal epithelial | Elastic Net |
+| 13 | `Ped_Wu <https://pubmed.ncbi.nlm.nih.gov/31756171/>`_               | 111            | Year | Blood             | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 14 | `GA_Bohlin <https://pubmed.ncbi.nlm.nih.gov/27717397/>`_            | 96             | Day  | Cord blood        | LASSO       |
+| 14 | `PedBE <https://pubmed.ncbi.nlm.nih.gov/31611402/>`_                | 94             | Year | Buccal epithelial | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 15 | `GA_Haftorn <https://pubmed.ncbi.nlm.nih.gov/33875015/>`_           | 176            | Day  | Cord blood        | LASSO       |
+| 15 | `GA_Bohlin <https://pubmed.ncbi.nlm.nih.gov/27717397/>`_            | 96             | Day  | Cord blood        | LASSO       |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 16 | `GA_Knight <https://pubmed.ncbi.nlm.nih.gov/27717399/>`_            | 148            | Week | Cord blood        | Elastic Net |
+| 16 | `GA_Haftorn <https://pubmed.ncbi.nlm.nih.gov/33875015/>`_           | 176            | Day  | Cord blood        | LASSO       |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 17 | `GA_Mayne <https://pubmed.ncbi.nlm.nih.gov/27894195/>`_             | 62             | Week | Placental tissues | Elastic Net |
+| 17 | `GA_Knight <https://pubmed.ncbi.nlm.nih.gov/27717399/>`_            | 148            | Week | Cord blood        | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 18 | `GA_Lee_CPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_           | 1125           | Week | Placental tissues | Elastic Net |
+| 18 | `GA_Mayne <https://pubmed.ncbi.nlm.nih.gov/27894195/>`_             | 62             | Week | Placental tissues | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 19 | `GA_Lee_RPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_           | 1125           | Week | Placental tissues | Elastic Net |
+| 19 | `GA_Lee_CPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_           | 546            | Week | Placental tissues | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
-| 20 | `GA_Lee_rRPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_          | 1125           | Week | Placental tissues | Elastic Net |
+| 20 | `GA_Lee_RPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_           | 558            | Week | Placental tissues | Elastic Net |
++----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
+| 21 | `GA_Lee_rRPC <https://pubmed.ncbi.nlm.nih.gov/31235674/>`_          | 395            | Week | Placental tissues | Elastic Net |
 +----+---------------------------------------------------------------------+----------------+------+-------------------+-------------+
 
 
