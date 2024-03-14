@@ -48,6 +48,7 @@ def epical():
         'GA_Lee_rRPC': clockinfo('GA_Lee_refined_RPC.pkl'),
 
         'Cortical': clockinfo('CorticalClock.pkl'),
+        'MEAT': clockinfo('MEAT.pkl'),
         'EPM': helpdoc.epm_help,
          }
 
@@ -123,6 +124,9 @@ def epical():
     parser_EPM = sub_parsers.add_parser(
         'EPM', help=commands['EPM']
         )
+    parser_MEAT = sub_parsers.add_parser(
+        'MEAT', help=commands['MEAT']
+        )
 
     # create the parser for the 'Horvath13' sub-command
     parser_Horvath13.add_argument(
@@ -184,6 +188,37 @@ def epical():
         '--overwrite', action='store_true',
         help='If set, over-write existing output files.')
     parser_Horvath13_shrunk.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+
+    # create the parser for the 'MEAT' sub-command
+    parser_MEAT.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_MEAT.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_MEAT.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_MEAT.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_MEAT.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_MEAT.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_MEAT.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_MEAT.add_argument(
+        '--impute', type=int, choices=range(-1, 11), default=0,
+        help=helpdoc.imputation_help)
+    parser_MEAT.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_MEAT.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_MEAT.add_argument(
         '--debug', action='store_true', help=helpdoc.debug_help)
 
     # create the parser for the 'Horvath18' sub-command
@@ -788,6 +823,21 @@ def epical():
                 ext_file=args.ref
                 )
         elif command == 'Horvath18':
+            config_log(switch=args.debug, logfile=args.log)
+            methylclocks.clock_horvath(
+                beta_file=args.input,
+                outfile=args.output,
+                metafile=args.metadata,
+                delimiter=args.delimiter,
+                adult_age=20,
+                cname=command,
+                ff=args.format,
+                na_percent=args.percent,
+                ovr=args.overwrite,
+                imputation_method=args.impute,
+                ext_file=args.ref
+                )
+        elif command == 'MEAT':
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_horvath(
                 beta_file=args.input,

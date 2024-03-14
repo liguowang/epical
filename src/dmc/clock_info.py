@@ -64,3 +64,4 @@ if __name__ == '__main__':
     clockinfo('Zhang_BLUP.pkl')
     clockinfo('Zhang_EN.pkl')
     clockinfo('AltumAge_cpg.pkl')
+    clockinfo('MEAT.pkl')

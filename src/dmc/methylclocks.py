@@ -254,7 +254,7 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
         Default is 20. Do not change this value.
     cname : str, optional
         Clock name. Must be one of ["Horvath_2013", "Horvath_2018", "PedPE",
-        "Ped_Wu"]. The default is "Horvath_2013".
+        "Ped_Wu", "MEAT"]. The default is "Horvath_2013".
     ff : str, optional
         The figure format. Must be one of ['pdf', 'png'].
         The default is 'pdf'.
@@ -327,6 +327,8 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
         fh = importlib.resources.open_binary('dmc.data', 'Ped_Wu.pkl')
     elif cname == 'Cortical':
         fh = importlib.resources.open_binary('dmc.data', 'CorticalClock.pkl')
+    elif cname == 'MEAT':
+        fh = importlib.resources.open_binary('dmc.data', 'MEAT.pkl')
     clock_dat = pickle.load(fh)
 
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
