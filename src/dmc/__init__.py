@@ -20,7 +20,7 @@ __status__ = "Development"
 
 def epical():
     """
-    Call different functions to calcualte the DNA methylation age.
+    Invoke various functions to calculate the DNA methylation age.
     """
     general_help = helpdoc.general_help
 
@@ -50,6 +50,11 @@ def epical():
         'Cortical': clockinfo('CorticalClock.pkl'),
         'MEAT': clockinfo('MEAT.pkl'),
         'EPM': helpdoc.epm_help,
+
+        'WLMT': clockinfo('WLMT_mm10.pkl'),
+        'YOMT': clockinfo('YOMT_mm10.pkl'),
+        'mmLiver': clockinfo('liver_mm10.pkl'),
+        'mmBlood': clockinfo('blood_mm10.pkl')
          }
 
     # create parse
@@ -126,6 +131,18 @@ def epical():
         )
     parser_MEAT = sub_parsers.add_parser(
         'MEAT', help=commands['MEAT']
+        )
+    parser_WLMT = sub_parsers.add_parser(
+        'WLMT', help=commands['WLMT']
+        )
+    parser_YOMT = sub_parsers.add_parser(
+        'YOMT', help=commands['YOMT']
+        )
+    parser_mmLiver = sub_parsers.add_parser(
+        'mmLiver', help=commands['mmLiver']
+        )
+    parser_mmBlood = sub_parsers.add_parser(
+        'mmBlood', help=commands['mmBlood']
         )
 
     # create the parser for the 'Horvath13' sub-command
@@ -788,6 +805,146 @@ def epical():
     parser_EPM.add_argument(
         '--debug', action='store_true', help=helpdoc.debug_help)
 
+    # create the parser for the mouse 'WLMT' sub-command
+    parser_WLMT.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_WLMT.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_WLMT.add_argument(
+       '-g', '--genome', type=str, choices=('mm10', 'mm39'), default='mm10',
+       help="The reference genome for Mouse (Mus musculus) used for RRBS or\
+           WGBS reads alignment. Must be 'mm10' or 'mm39'. default is 'mm10'.")
+    parser_WLMT.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_WLMT.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_WLMT.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_WLMT.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_WLMT.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_WLMT.add_argument(
+        '--impute', type=int, choices=range(-1, 11), default=0,
+        help=helpdoc.imputation_help)
+    parser_WLMT.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_WLMT.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+    parser_WLMT.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+
+    # create the parser for the mouse 'YOMT' sub-command
+    parser_YOMT.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_YOMT.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_YOMT.add_argument(
+       '-g', '--genome', type=str, choices=('mm10', 'mm39'), default='mm10',
+       help="The reference genome for Mouse (Mus musculus) used for RRBS or\
+           WGBS reads alignment. Must be 'mm10' or 'mm39'. default is 'mm10'.")
+    parser_YOMT.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_YOMT.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_YOMT.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_YOMT.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_YOMT.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_YOMT.add_argument(
+        '--impute', type=int, choices=range(-1, 11), default=0,
+        help=helpdoc.imputation_help)
+    parser_YOMT.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_YOMT.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+    parser_YOMT.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+
+    # create the parser for the mouse 'mmLiver' sub-command
+    parser_mmLiver.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_mmLiver.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_mmLiver.add_argument(
+       '-g', '--genome', type=str, choices=('mm10', 'mm39'), default='mm10',
+       help="The reference genome for Mouse (Mus musculus) used for RRBS or\
+           WGBS reads alignment. Must be 'mm10' or 'mm39'. default is 'mm10'.")
+    parser_mmLiver.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_mmLiver.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_mmLiver.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_mmLiver.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_mmLiver.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_mmLiver.add_argument(
+        '--impute', type=int, choices=range(-1, 11), default=0,
+        help=helpdoc.imputation_help)
+    parser_mmLiver.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_mmLiver.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+    parser_mmLiver.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+
+    # create the parser for the mouse 'mmBlood' sub-command
+    parser_mmBlood.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_mmBlood.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_mmBlood.add_argument(
+       '-g', '--genome', type=str, choices=('mm10', 'mm39'), default='mm10',
+       help="The reference genome for Mouse (Mus musculus) used for RRBS or\
+           WGBS reads alignment. Must be 'mm10' or 'mm39'. default is 'mm10'.")
+    parser_mmBlood.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_mmBlood.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_mmBlood.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_mmBlood.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_mmBlood.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_mmBlood.add_argument(
+        '--impute', type=int, choices=range(-1, 11), default=0,
+        help=helpdoc.imputation_help)
+    parser_mmBlood.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_mmBlood.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+    parser_mmBlood.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+
     args = parser.parse_args()
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -1094,8 +1251,68 @@ def epical():
                 frmt=args.format,
                 cname=command
                 )
+
+        elif command == 'WLMT':
+            config_log(switch=args.debug, logfile=args.log)
+            methylclocks.clock_mouse(
+                beta_file=args.input,
+                outfile=args.output,
+                genome=args.genome,
+                metafile=args.metadata,
+                delimiter=args.delimiter,
+                cname=command,
+                ff=args.format,
+                na_percent=args.percent,
+                ovr=args.overwrite,
+                imputation_method=args.impute,
+                ext_file=args.ref
+                )
+        elif command == 'YOMT':
+            config_log(switch=args.debug, logfile=args.log)
+            methylclocks.clock_mouse(
+                beta_file=args.input,
+                outfile=args.output,
+                genome=args.genome,
+                metafile=args.metadata,
+                delimiter=args.delimiter,
+                cname=command,
+                ff=args.format,
+                na_percent=args.percent,
+                ovr=args.overwrite,
+                imputation_method=args.impute,
+                ext_file=args.ref
+                )
+        elif command == 'mmLiver':
+            config_log(switch=args.debug, logfile=args.log)
+            methylclocks.clock_mouse(
+                beta_file=args.input,
+                outfile=args.output,
+                genome=args.genome,
+                metafile=args.metadata,
+                delimiter=args.delimiter,
+                cname=command,
+                ff=args.format,
+                na_percent=args.percent,
+                ovr=args.overwrite,
+                imputation_method=args.impute,
+                ext_file=args.ref
+                )
+        elif command == 'mmBlood':
+            config_log(switch=args.debug, logfile=args.log)
+            methylclocks.clock_mouse(
+                beta_file=args.input,
+                outfile=args.output,
+                genome=args.genome,
+                metafile=args.metadata,
+                delimiter=args.delimiter,
+                cname=command,
+                ff=args.format,
+                na_percent=args.percent,
+                ovr=args.overwrite,
+                imputation_method=args.impute,
+                ext_file=args.ref
+                )
         else:
             print("Unknown command!")
             parser.print_help(sys.stderr)
             sys.exit(0)
-

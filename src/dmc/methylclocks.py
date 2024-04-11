@@ -3,7 +3,7 @@
 """
 Description
 -----------
-This program calculates biological age from DNA methylation data.
+This program computes the biological age using DNA methylation data.
 """
 
 import sys
@@ -34,7 +34,7 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
                   cname="Zhang_BLUP", ff='pdf', na_percent=0.2,
                   ovr=False, imputation_method=6, ext_file=None):
     """
-    Calculate "Zhang_BLUP" and "Zhang_EN" methyl clocks.
+    Calculate DNAm age using the "Zhang_BLUP" or "Zhang_EN" clocks.
 
     Parameters
     ----------
@@ -43,12 +43,20 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
 
         #example of CSV file
         ID_REF,s55N,s58N,s64N,s68N,s72N,s74N,s76N,s77N
-        cg26928153,0.86007,0.79695,0.72618,0.67142,0.70801,0.80371,0.87158,0.78885
-        cg16269199,0.74023,0.64148,0.65569,0.64138,0.56486,0.5707,0.75318,0.67239
-        cg13869341,0.76405,0.7559,0.7059,0.82141,0.72888,0.72055,0.87058,0.80822
+        cg26928153,0.86,0.79695,0.72618,0.67142,0.70801,0.80371,0.87158,0.78885
+        cg16269199,0.74,0.64148,0.65569,0.64138,0.56486,0.5707,0.75318,0.67239
+        cg13869341,0.76,0.7559,0.7059,0.82141,0.72888,0.72055,0.87058,0.80822
         ...
     outfile : str
         The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
     delimiter : str, optional
         Character used to separate columns of the input file.
         The default is None
@@ -232,8 +240,8 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
                   cname="Horvath_2013", ff='pdf', na_percent=0.2, ovr=False,
                   imputation_method=6, ext_file=None):
     """
-    Calculate "Horvath_2013", "Horvath_2018", "PedPE" and "Ped_Wu"
-    methyl clocks.
+    Calculate DNAm age using the "Horvath_2013", "Horvath_2018", "PedPE" or
+    "Ped_Wu" clocks.
 
     Parameters
     ----------
@@ -247,6 +255,14 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
         ...
     outfile : str
         The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
     delimiter : str, optional
         Character used to separate columns of the input file.
         The default is None
@@ -455,7 +471,8 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
                         cname="Levine", ff='pdf', na_percent=0.2, ovr=False,
                         imputation_method=6, ext_file=None):
     """
-    Calculate "Levine", "Hannum", "Lu_DNAmTL" methyl clocks.
+    Calculate DNAm age using the "Levine", "Hannum", or "Lu_DNAmTL" clock.
+    Note, the output of "Lu_DNAmTL" clock is "Kb" (DNA telomere length)
 
     Parameters
     ----------
@@ -469,6 +486,14 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
         ...
     outfile : str
         The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
     delimiter : str, optional
         Character used to separate columns of the input file.
         The default is None
@@ -648,12 +673,13 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
         pass
     return output
 
+
 def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
              cname="GA_Knight", ff='pdf', na_percent=0.2, ovr=False,
              imputation_method=6, ext_file=None):
     """
-    Calculate 'Knight', 'Bohlin', 'Mayne', 'Haftorn', 'Lee_CPC', 'Lee_RPC',
-    'Lee_cRPC' Gestational age.
+    Calculate DNAm age (gestational) using the 'Knight', 'Bohlin', 'Mayne',
+    'Haftorn', 'Lee_CPC', 'Lee_RPC', or 'Lee_cRPC' clock.
 
     Parameters
     ----------
@@ -667,6 +693,14 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
         ...
     outfile : str
         The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
     delimiter : str, optional
         Character used to separate columns of the input file.
         The default is None
@@ -856,7 +890,8 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
               cname="AltumAge", ff='pdf', na_percent=0.2, ovr=False,
               imputation_method=6, ext_file=None):
     """
-    Calculate 'Knight', 'Bohlin', 'Mayne', 'Haftorn', 'Lee' Gestational age.
+    Calculate DNAm age (gestational) using the 'Knight', 'Bohlin', 'Mayne',
+    'Haftorn', or 'Lee' clock.
 
     Parameters
     ----------
@@ -870,6 +905,14 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
         ...
     outfile : str
         The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
     delimiter : str, optional
         Character used to separate columns of the input file.
         The default is None
@@ -1046,7 +1089,9 @@ def clock_epm(beta_file, metafile, outfile, delimiter=None,
               imputation_method=6, ext_file=None, pcc_cut=0.85,
               iter_n=100, error_tol=1e-5, cv_folds=10, frmt='pdf',
               cname='EPM'):
-
+    """
+    Epigenetic Pacemaker (EPM)
+    """
     # set up the prefix for output files.
     if outfile is not None:
         out_prefix = outfile
@@ -1263,3 +1308,274 @@ def clock_epm(beta_file, metafile, outfile, delimiter=None,
             outfile=train_png_out,
             title="EPM CV predicted ages (training samples when left out)"
             )
+
+
+def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
+                cname="WLMT", ff='pdf', na_percent=0.2, ovr=False,
+                imputation_method=6, ext_file=None):
+    """
+    Compute mouse DNAm age using four clocks ("WLMT", "YOMT", "Liver", or
+    "Blood"). Note that unlike human DNAm clocks, the input DNA methylation
+    values (commonly known as beta values) for mouse DNAm clocks are derived
+    from RRBS or WGBS, rather than EPIC array data.
+
+    **The CpG ID is represented by chrom and position (see example below)**
+
+    Parameters
+    ----------
+    beta_file : str
+        The input tabular structure file containing DNA methylation data.
+        #example of CSV file
+        ID,Br0603,Br0607,Br0608
+        chr10_111559529,0.86007,0.79695,0.72618
+        chr10_115250413,0.74023,0.64148,0.65569
+        chr10_118049337,0.76405,0.7559,0.7059
+        ...
+    outfile : str
+        The prefix of out files.
+    genome : str
+        Must be one of ["mm39", "mm10"].
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
+    delimiter : str, optional
+        Character used to separate columns of the input file.
+        The default is None
+    cname : str, optional
+        Clock name. Must be one of ["WLMT", "YOMT", "mmLiver" and "mmBlood"].
+        The default is "Levine".
+    ff : str, optional
+        The figure format. Must be one of ['pdf', 'png'].
+        The default is 'pdf'.
+    na_percent : float, optional
+        The maximum of percent of missing values.
+        The default is 0.2 (20%).
+    ovr : bool, optional
+        If set, over write existing files. The default is False
+    imputation_method : int
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        imputation.py for details. default is 6.
+    ext_file : str
+        This is must be exisit if imputation_method is set to 10.
+        Two-column, Tab or comma separated file: 1st column is CpG ID, the 2nd
+        column is beta value.
+
+
+    Returns
+    -------
+    Pandas Series.
+    """
+
+    # set up the prefix for output files.
+    if outfile is not None:
+        out_prefix = outfile
+    else:
+        out_prefix = cname + '_out'
+    logging.info(
+        "The prefix of output files is set to \"%s\"." % out_prefix)
+
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
+    age_out = out_prefix + '.DNAm_age.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
+    r_out = out_prefix + '.plots.R'
+
+    if ff.lower() in ['pdf', 'png']:
+        figure_out = out_prefix + '.coef_plot.' + ff.lower()
+        scatter_out = out_prefix + '.scatter_plot.' + ff.lower()
+    else:
+        logging.error("Does not suppor format: %s!" % ff)
+        sys.exit(0)
+    outfiles = [used_cpg_out, missed_cpg_out, age_out, coef_out, r_out,
+                figure_out, scatter_out]
+
+    if ovr is True:
+        logging.warning(
+            "Over write existing files with prefix: %s" % out_prefix)
+        for tmp in outfiles:
+            try:
+                os.remove(tmp)
+            except FileNotFoundError:
+                continue
+    else:
+        for tmp in outfiles:
+            if os.path.exists(tmp):
+                logging.error(
+                    "%s exists! Use different prefix or specify \
+                    \"--overwrite\" to replace existing files." % tmp)
+                sys.exit(0)
+
+    logging.info("Loading %s clock data ..." % cname)
+    if cname.lower() == 'mmliver':
+        if genome == 'mm10':
+            fh = importlib.resources.open_binary('dmc.data', 'liver_mm10.pkl')
+        elif genome == 'mm39':
+            fh = importlib.resources.open_binary('dmc.data', 'liver_mm39.pkl')
+        else:
+            logging.error(
+                "Cannot find model file for %s (%s)" % (cname, genome))
+            sys.exit(0)
+    elif cname.lower() == 'mmblood':
+        if genome == 'mm10':
+            fh = importlib.resources.open_binary('dmc.data', 'blood_mm10.pkl')
+        elif genome == 'mm39':
+            fh = importlib.resources.open_binary('dmc.data', 'blood_mm39.pkl')
+        else:
+            logging.error(
+                "Cannot find model file for %s (%s)" % (cname, genome))
+            sys.exit(0)
+    elif cname.lower() == 'wlmt':
+        if genome == 'mm10':
+            fh = importlib.resources.open_binary('dmc.data', 'WLMT_mm10.pkl')
+        elif genome == 'mm39':
+            fh = importlib.resources.open_binary('dmc.data', 'WLMT_mm39.pkl')
+        else:
+            logging.error(
+                "Cannot find model file for %s (%s)" % (cname, genome))
+            sys.exit(0)
+    elif cname.lower() == 'yomt':
+        if genome == 'mm10':
+            fh = importlib.resources.open_binary('dmc.data', 'YOMT_mm10.pkl')
+        elif genome == 'mm39':
+            fh = importlib.resources.open_binary('dmc.data', 'YOMT_mm39.pkl')
+        else:
+            logging.error(
+                "Cannot find model file for %s (%s)" % (cname, genome))
+            sys.exit(0)
+    else:
+        logging.error("Unknown command %s" % cname)
+        sys.exit(0)
+
+    clock_dat = pickle.load(fh)
+
+    logging.info("Clock's name: \"%s\"" % clock_dat.name)
+    logging.info(
+        "Clock was trained from: \"%s\"" % ','.join(clock_dat.tissues))
+    logging.info("Clock's unit: \"%s\"" % clock_dat.unit)
+    logging.info("Number of CpGs used: %d" % clock_dat.ncpg)
+    logging.info("Clock's description: \"%s\"" % clock_dat.info)
+    clock_coef = pd.Series(clock_dat.coef, name='Coef')
+    if cname.lower() == 'wlmt' or cname.lower() == 'liver':
+        clock_intercept = clock_dat.Intercept
+    else:
+        clock_intercept = 0.0
+
+    logging.info("Read input file: \"%s\"" % beta_file)
+    input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
+
+    # For mouse clock. We need to change the range of beta values
+    # from (0, 1) to (0, 100)
+    if input_df1.max(axis=None) <= 1:
+        logging.info("Change the range of beta values from (0, 1) to (0, 100)")
+        input_df1 = input_df1*100
+
+    input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
+    (n_cpg, n_sample) = input_df2.shape
+    logging.info(
+        "Input file: \"%s\", Number of CpGs: %d, Number of samples: %d" %
+        (beta_file, n_cpg, n_sample))
+    sample_cpg_ids = input_df2.index
+    # sample_names = df2.columns
+
+    # printlog("Standardization ...")
+    # scaled_df2 = (input_df2 - input_df2.mean())/input_df2.std()
+
+    logging.info("Extract clock CpGs ...")
+    # clock CpGs missed from data file
+    missed_cpgs = set(clock_coef.index) - set(sample_cpg_ids)
+    logging.info(
+        "Clock CpGs missed from '%s': %d (%f%%)" %
+        (beta_file, len(missed_cpgs), len(missed_cpgs)*100/clock_dat.ncpg))
+
+    if len(missed_cpgs)/clock_dat.ncpg > na_percent:
+        logging.critical(
+            "Missing clock CpGs exceed %f%%. Exit!" % (na_percent*100))
+        sys.exit(0)
+
+    common_cpgs = list(set(clock_coef.index) & set(sample_cpg_ids))
+    logging.info(
+        "Clock CpGs exisit in \"%s\": %d" % (beta_file, len(common_cpgs)))
+
+    used_df = input_df2.loc[common_cpgs]
+    used_clock_coef = clock_coef.loc[common_cpgs]
+    (usable_cpg, usable_sample) = used_df.shape
+    logging.info(
+        "Used CpGs: %d, Used samples: %d" % (usable_cpg, usable_sample))
+
+    df4 = used_df.mul(used_clock_coef, axis=0)
+
+    # df4.to_csv('df4.csv')
+    if cname.lower() == 'wlmt' or cname.lower() == 'mmliver':
+        output = df4.sum(axis=0) + clock_intercept
+    elif cname.lower() == 'mmblood':
+        a = 0.1666
+        b = 0.4185
+        c = -1.712
+        output = ((df4.sum(axis=0) - c)/a) ** (1/b)
+    elif cname.lower() == 'yomt':
+        a = 0.1207
+        b = 1.2424
+        c = 2.5440
+        output = a*((df4.sum(axis=0)**2)) + b*df4.sum(axis=0) + c
+    else:
+        logging.error("Unknown command %s" % cname)
+        sys.exit()
+    output.name = "%s" % cname
+
+    if metafile is not None:
+        logging.info("Read meta information file: \"%s\"" % metafile)
+        meta_df = pd.read_csv(metafile, sep=None, index_col=0, engine='python')
+        meta_df.index = meta_df.index.astype(str)
+        # combine predicted age and other meta information
+        logging.info("Combining meta information with predicted age")
+        output = pd.concat([output, meta_df], axis=1)
+
+        # generate scatter plot between c_age and d_age
+        c_age = []
+        for col_id in output.columns:
+            if col_id.lower() == 'age':
+                c_age = output[col_id]
+                break
+        d_age = output[cname]
+
+        if len(c_age) >= 2 and len(c_age) == len(d_age):
+            logging.info(
+                "Writing R script of scatter plot. Save to: %s" % r_out)
+            plot_corr(c_age, d_age, outfile=scatter_out, rfile=r_out)
+
+    # save used CpGs to file
+    logging.info("Save used CpGs and beta values to: %s" % used_cpg_out)
+    used_df.to_csv(used_cpg_out, sep="\t", index_label="CpG_ID")
+
+    # save missed CpGs to file
+    logging.info("Save missed CpGs: %s" % missed_cpg_out)
+    tmp = pd.DataFrame(list(missed_cpgs), columns=["missed_CpGs"])
+    tmp.to_csv(missed_cpg_out, sep="\t", index=False)
+
+    # save coef information
+    logging.info("Save CpG and coefficients to: %s" % coef_out)
+    tmp = clock_coef.to_frame()
+    tmp['Found'] = tmp.index.isin(common_cpgs)
+    tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
+
+    # save predicted age
+    logging.info("Save predicted DNAm age to: %s" % age_out)
+    output.to_csv(age_out, sep="\t", index_label="Sample_ID")
+
+    # generate coefficient plot
+    logging.info("Generate coefficient plot. Save to: %s" % figure_out)
+    plot_coef(coef_out, figure_out, r_out)
+
+    logging.info("Running R script: %s" % r_out)
+    try:
+        subprocess.call("Rscript " + r_out, shell=True)
+    except subprocess.CalledProcessError as e:
+        print("Cannot generate pdf file from " + r_out, file=sys.stderr)
+        print(e.output, file=sys.stderr)
+        pass
+    return output

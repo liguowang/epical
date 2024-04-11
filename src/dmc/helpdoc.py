@@ -6,12 +6,12 @@ Created on Fri Dec 15 14:55:42 2023
 """
 
 general_help = '''
-    epical : An epigenetic age calculator.
+    Epical: A DNA Methylation-Based Epigenetic Age Calculator.
     '''
 
 format_help = '''
-    Figure format of the output coef plot. It must be "pdf" or "png".
-    The default is "pdf".
+    The output plot format must be either 'pdf' or 'png'.
+    The default format is 'pdf'.".
     '''
 
 input_help = '''
@@ -83,11 +83,69 @@ epm_help = '''
     expectationmaximization algorithm that models epigenetic states under and
     evolutionaryframework. Unlike the linear regression approach, it does not
     assume a linearrelationship between the epigenetic state and a trait of
-    interest. Reference:Farrell C, et al. "The Epigenetic Pacemaker: modeling
+    interest. Reference: Farrell C, et al. "The Epigenetic Pacemaker: modeling
     epigenetic states underan evolutionary framework". Bioinformatics (2020).
-    PubMed:https://pubmed.ncbi.nlm.nih.gov/32573701/.
+    PubMed: https://pubmed.ncbi.nlm.nih.gov/32573701/.
     '''
 
+WLMT_help = '''
+    Description: WLMT is a whole lifespan, multi-tissue mouse epigenetic age
+    predictor based on 435 CpG sites identified from RRBS/WGBS.
+    Reference: Meer MV, et al. "A whole lifespan mouse multi-tissue DNA
+    methylation clock". Elife (2018).
+    Pubmed: https://pubmed.ncbi.nlm.nih.gov/30427307/.
+    *Note*: Unlike human DNAm clocks where the beta values are calculated from
+    EPIC array data, for mouse clocks, the beta values are derived from RRBS
+    or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
+    represented in the format of "chrom_position" (where the position indicates
+    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
+    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
+    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    '''
+
+YOMT_help = '''
+    Description: YOMT is a whole lifespan, multi-tissue mouse epigenetic age
+    predictor based on 329 CpG sites dentified from RRBS/WGBS.
+    Reference: Stubbs TM, et al. "Multi-tissue DNA methylation age predictor
+    in mouse". Genome Biol. (2017).
+    Pubmed: https://pubmed.ncbi.nlm.nih.gov/28399939/.
+    *Note*: Unlike human DNAm clocks where the beta values are calculated from
+    EPIC array data, for mouse clocks, the beta values are derived from RRBS
+    or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
+    represented in the format of "chrom_position" (where the position indicates
+    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
+    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
+    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    '''
+mmLiver_help = '''
+    Description: A mouse epigenetic age predictor based on 148 CpG sites.
+    Tissue: ['liver'].
+    Reference: Wang T, et al. "Epigenetic aging signatures in
+    mice livers are slowed by dwarfism, calorie restriction and rapamycin
+    treatment". Genome Biol. (2017).
+    Pubmed: https://pubmed.ncbi.nlm.nih.gov/28351423/.
+    *Note*: Unlike human DNAm clocks where the beta values are calculated from
+    EPIC array data, for mouse clocks, the beta values are derived from RRBS
+    or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
+    represented in the format of "chrom_position" (where the position indicates
+    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
+    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
+    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    '''
+mmBlood_help = '''
+    Description: A mouse epigenetic age predictor based on 90 CpG
+    sites. Tissue: ['blood'].
+    Reference: Petkovich DA, et al. "Using DNA Methylation Profiling to
+    Evaluate Biological Age and Longevity Interventions". Cell Metab. (2017).
+    Pubmed: https://pubmed.ncbi.nlm.nih.gov/28380383/.
+    *Note*: Unlike human DNAm clocks where the beta values are calculated from
+    EPIC array data, for mouse clocks, the beta values are derived from RRBS
+    or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
+    represented in the format of "chrom_position" (where the position indicates
+    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
+    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
+    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    '''
 epm_output_help = '''
     The PREFIX of output files. If no PREFIX is provided, the default prefix
     "EPM_out" is used. The generated output files include:

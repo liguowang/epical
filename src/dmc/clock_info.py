@@ -30,18 +30,18 @@ def clockinfo(infile):
     """
     fh = importlib.resources.open_binary('dmc.data', infile)
     dat = pickle.load(fh)
-    # print (dat.name)
-    # print ("  Tissues:\t%s" % ','.join(dat.tissues))
-    # print ("  Time unit:\t%s" % dat.unit)
-    # print ("  CpGs and coefs:\t", take(3, dat.coef.items()))
-    # print ("  Total_CpG:\t%d" % dat.ncpg)
-    # print ("  Intercept:\t%d" % dat.Intercept)
-    # print ("  Information:\t%s" % dat.info)
-    # print ("  Method:\t%s" % dat.method)
-    # print ("  Reference:\t", dat.ref)
-    # print ("  Pub_link:\t%s" % dat.pubmed)
-    # print ('\n')
-    information = f'Description: {dat.info} Method: {dat.method} Tissue: {dat.tissues}. Used CpGs: {dat.ncpg}. Reference: {dat.ref} PubMed: {dat.pubmed}'
+    information = f'\
+        Description: {dat.info}.\
+        Organism: {dat.organism}.\
+        Tissue: {dat.tissues}.\
+        Training data platforms: {dat.t_platform}.\
+        Training age range: {dat.age_range}.\
+        Training age unit: {dat.age_unit}.\
+        Prediction age unit: {dat.unit}.\
+        Clock CpGs: {dat.ncpg}.\
+        Method: {dat.method}.\
+        Reference: {dat.ref}.\
+        PubMed: {dat.pubmed}.'
     return information
 
 
@@ -65,3 +65,12 @@ if __name__ == '__main__':
     clockinfo('Zhang_EN.pkl')
     clockinfo('AltumAge_cpg.pkl')
     clockinfo('MEAT.pkl')
+
+    clockinfo('liver_mm10.pkl')
+    clockinfo('liver_mm39.pkl')
+    clockinfo('blood_mm10.pkl')
+    clockinfo('blood_mm39.pkl')
+    clockinfo('YOMT_mm10.pkl')
+    clockinfo('YOMT_mm39.pkl')
+    clockinfo('WLMT_mm10.pkl')
+    clockinfo('WLMT_mm39.pkl')

@@ -11,7 +11,8 @@ class MakeMethylObj():
     Pack DNA methylation signature file into object.
 
     >>> from dmc.methyldat import MakeMethylObj
-    >>> a = MakeMethylObj(signature_file = 'coefBlup.tsv', signature_name = 'BLUP', signature_info="BLUP clock", unit='year')
+    >>> a = MakeMethylObj(signature_file = 'coefBlup.tsv', signature_name = \
+                          'BLUP', signature_info="BLUP clock", unit='year')
     >>> a.name
     'BLUP'
     >>> a.Intercept
@@ -24,7 +25,10 @@ class MakeMethylObj():
     0.000557006779951299
     """
 
-    def __init__(self, signature_file, signature_name, tissues=[], unit='', signature_info='', reference='', pub_link='', method=''):
+    def __init__(self, signature_file, signature_name, tissues=[],
+                 unit='', signature_info='', reference='', pub_link='',
+                 method='', organism='', training_platform=[],
+                 training_age_range=[], training_age_range_unit=''):
         self.name = signature_name
         self.info = signature_info
         self.tissues = tissues
@@ -36,6 +40,10 @@ class MakeMethylObj():
         self.ref = reference
         self.pubmed = pub_link
         self.method = method
+        self.organism = organism
+        self.t_platform = training_platform
+        self.age_range = training_age_range
+        self.age_unit = training_age_range_unit
         for l in ireader.reader(signature_file):
             if l.startswith('#'):
                 continue
