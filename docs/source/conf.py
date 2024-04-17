@@ -7,9 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'epical'
-copyright = '2023, Liguo Wang, Tao Ma, et al'
+copyright = '2024, Liguo Wang, Tao Ma, et al'
 author = 'Liguo Wang, Tao Ma, et al'
-release = '0.0.1'
+release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
