@@ -99,7 +99,7 @@ WLMT_help = '''
     or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
     represented in the format of "chrom_position" (where the position indicates
     the 1-based coordinate of 'C'). Furthermore, the range of beta values in
-    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
+    this clocks is (0, 100) instead of (0, 1). If the input beta values range
     from 0 to 1, they will be automatically converted to the (0, 100) range.
     '''
 
@@ -113,9 +113,7 @@ YOMT_help = '''
     EPIC array data, for mouse clocks, the beta values are derived from RRBS
     or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
     represented in the format of "chrom_position" (where the position indicates
-    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
-    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
-    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    the 1-based coordinate of 'C').
     '''
 mmLiver_help = '''
     Description: A mouse epigenetic age predictor based on 148 CpG sites.
@@ -128,9 +126,7 @@ mmLiver_help = '''
     EPIC array data, for mouse clocks, the beta values are derived from RRBS
     or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
     represented in the format of "chrom_position" (where the position indicates
-    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
-    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
-    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    the 1-based coordinate of 'C').
     '''
 mmBlood_help = '''
     Description: A mouse epigenetic age predictor based on 90 CpG
@@ -142,9 +138,7 @@ mmBlood_help = '''
     EPIC array data, for mouse clocks, the beta values are derived from RRBS
     or WGBS data. Consequently, in mouse clocks, the IDs of clock CpGs are
     represented in the format of "chrom_position" (where the position indicates
-    the 1-based coordinate of 'C'). Furthermore, the range of beta values in
-    mouse clocks is (0, 100) instead of (0, 1). If the input beta values range
-    from 0 to 1, they will be automatically converted to the (0, 100) range.
+    the 1-based coordinate of 'C').
     '''
 epm_output_help = '''
     The PREFIX of output files. If no PREFIX is provided, the default prefix

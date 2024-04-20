@@ -198,7 +198,7 @@ def plot_corr(cage, dage, outfile, rfile):
     print("text(min(c_age) + 15, max(d_age), labels=c(\"r = %s, P = %s\"))" % (r, pval), file=ROUT)
     print("abline(a=0, b=1, lty='dashed', col='red', lwd=0.75)", file=ROUT)
     print("abline(glm(d_age~c_age), lwd=1, col='blue')", file=ROUT)
-    print("abline(v=seq(0,100,5),h=seq(0,100,5), lty='dashed', lwd=0.5, col='grey')", file=ROUT)
+    #print("abline(v=seq(0,100,5),h=seq(0,100,5), lty='dashed', lwd=0.5, col='grey')", file=ROUT)
     print("dev.off()", file=ROUT)
     ROUT.close()
 

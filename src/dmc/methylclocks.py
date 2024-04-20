@@ -1460,7 +1460,7 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
     logging.info("Number of CpGs used: %d" % clock_dat.ncpg)
     logging.info("Clock's description: \"%s\"" % clock_dat.info)
     clock_coef = pd.Series(clock_dat.coef, name='Coef')
-    if cname.lower() == 'wlmt' or cname.lower() == 'liver':
+    if cname.lower() == 'wlmt' or cname.lower() == 'mmliver':
         clock_intercept = clock_dat.Intercept
     else:
         clock_intercept = 0.0
@@ -1468,11 +1468,16 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
     logging.info("Read input file: \"%s\"" % beta_file)
     input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
 
-    # For mouse clock. We need to change the range of beta values
-    # from (0, 1) to (0, 100)
-    if input_df1.max(axis=None) <= 1:
+    # For WLMT clock, the input beta values should be in [0, 100] range
+    # convert (0, 1) to (0, 100) for WLMT if needed
+    if cname.lower() == 'wlmt' and input_df1.max(axis=None) <= 1:
         logging.info("Change the range of beta values from (0, 1) to (0, 100)")
         input_df1 = input_df1*100
+    # For YOMT/mmBlood/mmLiver clock, the input beta values should be in the
+    # [0, 1] range. Convert (0, 100) to (0, 1) for YOMT if needed
+    if cname.lower() in ('yomt', 'mmliver', 'mmblood') and input_df1.max(axis=None) > 1:
+        logging.info("Change the range of beta values from (0, 1) to (0, 100)")
+        input_df1 = input_df1/100
 
     input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
     (n_cpg, n_sample) = input_df2.shape
@@ -1510,8 +1515,10 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
     df4 = used_df.mul(used_clock_coef, axis=0)
 
     # df4.to_csv('df4.csv')
-    if cname.lower() == 'wlmt' or cname.lower() == 'mmliver':
+    if cname.lower() == 'wlmt':
         output = df4.sum(axis=0) + clock_intercept
+    elif cname.lower() == 'mmliver':
+        output = 2**(df4.sum(axis=0) + clock_intercept)
     elif cname.lower() == 'mmblood':
         a = 0.1666
         b = 0.4185
@@ -1521,7 +1528,7 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
         a = 0.1207
         b = 1.2424
         c = 2.5440
-        output = a*((df4.sum(axis=0)**2)) + b*df4.sum(axis=0) + c
+        output = 7*np.exp(a*((df4.sum(axis=0)**2)) + b*df4.sum(axis=0) + c)
     else:
         logging.error("Unknown command %s" % cname)
         sys.exit()
