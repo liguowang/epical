@@ -1,5 +1,5 @@
 __pycache__/*
-src/dmc/__pycache__/
+src/dmc/__pycache__/*
 .Python
 build/*
 develop-eggs/*
