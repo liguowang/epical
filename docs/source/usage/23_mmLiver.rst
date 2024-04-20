@@ -111,7 +111,7 @@ Usage
 Example
 -------
 
-``$ epical mmLiver Test7_mouse_WLMT_N80_RRBS_beta.tsv -g mm10 -o mmLiver_out``
+``$ epical mmLiver Test7_mouse_N81_RRBS_beta.tsv -g mm10 -o mmLiver_out``
 
 .. code-block:: text
  
