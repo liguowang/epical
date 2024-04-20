@@ -23,9 +23,9 @@ v1.0 (850K) or MethylationEPIC v2.0 array.
 
 Available clocks for Human
 ---------------------------
-.. image:: ./_static/human.png
-   :height: 185 px
-   :width: 630 px
+.. image:: ./_static/human2.png
+   :height: 140 px
+   :width: 650 px
    :scale: 100 %  
    :alt: mouse.png
 
