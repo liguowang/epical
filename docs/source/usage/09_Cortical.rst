@@ -1,5 +1,5 @@
 Cortical
-===========
+========
 
 .. csv-table::
    :widths: 25, 55
