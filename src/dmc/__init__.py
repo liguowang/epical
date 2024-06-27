@@ -165,7 +165,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Horvath13.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Horvath13.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -196,7 +196,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Horvath13_shrunk.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Horvath13_shrunk.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -227,7 +227,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_MEAT.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_MEAT.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -258,7 +258,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Horvath18.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Horvath18.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -289,7 +289,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_PedBE.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_PedBE.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -320,7 +320,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Levine.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Levine.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -351,7 +351,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Hannum.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Hannum.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -382,7 +382,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Lu_DNAmTL.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Lu_DNAmTL.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -413,7 +413,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Zhang_BLUP.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Zhang_BLUP.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -444,7 +444,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Zhang_EN.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Zhang_EN.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -475,7 +475,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Knight.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Knight.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -506,7 +506,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Mayne.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Mayne.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -537,7 +537,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Bohlin.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Bohlin.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -568,7 +568,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Haftorn.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Haftorn.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -599,7 +599,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Lee_CPC.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Lee_CPC.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -630,7 +630,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Lee_RPC.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Lee_RPC.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -661,7 +661,7 @@ def epical():
         '-l', '--log', type=str, metavar='mog_file', default=None,
         help=helpdoc.log_help)
     parser_GA_Lee_rRPC.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_GA_Lee_rRPC.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -692,7 +692,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Ped_Wu.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Ped_Wu.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -723,7 +723,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_AltumAge.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_AltumAge.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -754,7 +754,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_Cortical.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_Cortical.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -797,7 +797,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_EPM.add_argument(
-        '-i', '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_EPM.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -829,7 +829,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_WLMT.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_WLMT.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -864,7 +864,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_YOMT.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_YOMT.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -899,7 +899,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_mmLiver.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_mmLiver.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,
@@ -934,7 +934,7 @@ def epical():
         '-l', '--log', type=str, metavar='log_file', default=None,
         help=helpdoc.log_help)
     parser_mmBlood.add_argument(
-        '--impute', type=int, choices=range(-1, 11), default=0,
+        '--impute', type=int, choices=range(-1, 12), default=11,
         help=helpdoc.imputation_help)
     parser_mmBlood.add_argument(
         '-r', '--ref', type=str, metavar='ref_file', default=None,

@@ -32,7 +32,7 @@ __status__ = "Development"
 
 def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
                   cname="Zhang_BLUP", ff='pdf', na_percent=0.2,
-                  ovr=False, imputation_method=6, ext_file=None):
+                  ovr=False, imputation_method=11, ext_file=None):
     """
     Calculate DNAm age using the "Zhang_BLUP" or "Zhang_EN" clocks.
 
@@ -238,7 +238,7 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
 
 def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=20,
                   cname="Horvath_2013", ff='pdf', na_percent=0.2, ovr=False,
-                  imputation_method=6, ext_file=None):
+                  imputation_method=11, ext_file=None):
     """
     Calculate DNAm age using the "Horvath_2013", "Horvath_2018", "PedPE" or
     "Ped_Wu" clocks.
@@ -469,7 +469,7 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
 
 def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
                         cname="Levine", ff='pdf', na_percent=0.2, ovr=False,
-                        imputation_method=6, ext_file=None):
+                        imputation_method=11, ext_file=None):
     """
     Calculate DNAm age using the "Levine", "Hannum", or "Lu_DNAmTL" clock.
     Note, the output of "Lu_DNAmTL" clock is "Kb" (DNA telomere length)
@@ -676,7 +676,7 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
 
 def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
              cname="GA_Knight", ff='pdf', na_percent=0.2, ovr=False,
-             imputation_method=6, ext_file=None):
+             imputation_method=11, ext_file=None):
     """
     Calculate DNAm age (gestational) using the 'Knight', 'Bohlin', 'Mayne',
     'Haftorn', 'Lee_CPC', 'Lee_RPC', or 'Lee_cRPC' clock.
@@ -888,7 +888,7 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
 
 def altum_age(beta_file, outfile, metafile=None, delimiter=None,
               cname="AltumAge", ff='pdf', na_percent=0.2, ovr=False,
-              imputation_method=6, ext_file=None):
+              imputation_method=11, ext_file=None):
     """
     Calculate DNAm age (gestational) using the 'Knight', 'Bohlin', 'Mayne',
     'Haftorn', or 'Lee' clock.
@@ -1086,7 +1086,7 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
 
 
 def clock_epm(beta_file, metafile, outfile, delimiter=None,
-              imputation_method=6, ext_file=None, pcc_cut=0.85,
+              imputation_method=11, ext_file=None, pcc_cut=0.85,
               iter_n=100, error_tol=1e-5, cv_folds=10, frmt='pdf',
               cname='EPM'):
     """
@@ -1312,7 +1312,7 @@ def clock_epm(beta_file, metafile, outfile, delimiter=None,
 
 def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
                 cname="WLMT", ff='pdf', na_percent=0.2, ovr=False,
-                imputation_method=6, ext_file=None):
+                imputation_method=11, ext_file=None):
     """
     Compute mouse DNAm age using four clocks ("WLMT", "YOMT", "Liver", or
     "Blood"). Note that unlike human DNAm clocks, the input DNA methylation

@@ -8,6 +8,7 @@ import os
 import pandas as pd
 # import numpy as np
 import logging
+from sklearn.impute import KNNImputer
 
 
 def update_df_row(df_in, fill_value='mean'):
@@ -47,7 +48,7 @@ def update_df_row(df_in, fill_value='mean'):
     return df_in
 
 
-def impute_beta(input_df, method, ref=None):
+def impute_beta(input_df, method, ref=None, k=None, w='uniform'):
     """
     Parameters
     ----------
@@ -75,14 +76,23 @@ def impute_beta(input_df, method, ref=None):
             3: Fill the missing values with **column median**
             4: Fill the missing values with **column min**
             5: Fill the missing values with **column max**
-            6: Fill the missing values with **row mean** (default)
+            6: Fill the missing values with **row mean** 
             7: Fill the missing values with **row median**
             8: Fill the missing values with **row min**
             9: Fill the missing values with **row max**
             10: Fill the missing values with **external reference**
+            11: Fill the missing values with average values from K Nearest Neighbors (KNN). (default)
     ref : str
         Tab or comma separated file. The first column is CpG ID, the 2nd
         column is beta value.
+    k : int
+        Number of neighboring samples to use for imputation. If k is None,
+        k = sqrt(n) where n is the "number of samples" in the input_df.
+        Only effective when used imputation method is "KNN".
+    w : str
+        Weight function used in prediction. 
+        (https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html)
+        Only effective when used imputation method is "KNN".
 
     Returns
     -------
@@ -156,6 +166,13 @@ def impute_beta(input_df, method, ref=None):
         else:
             logging.error("External file %s does not exist." % ref)
             sys.exit()
+    elif method == 11:
+        if k is None:
+            nb = int(input_df.shape[1]**0.5)
+        else:
+            nb = k
+        imputer = KNNImputer(n_neighbors=nb, weights=w)
+        output_df = imputer.fit_transform(input_df)
     return output_df
 
 

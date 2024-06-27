@@ -167,19 +167,20 @@ log_help = '''
 
 imputation_help = '''
     The imputation method code must be one of the 12 digits including (-1,
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10). The interpretations are:
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11). The interpretations are:
         -1: Remove CpGs with any missing values.
-        0: Fill all missing values with '0.0'.
-        1: Fill all missing values with '1.0'.
-        2: Fill the missing values with **column mean**
-        3: Fill the missing values with **column median**
-        4: Fill the missing values with **column min**
-        5: Fill the missing values with **column max**
-        6: Fill the missing values with **row mean**
-        7: Fill the missing values with **row median**
-        8: Fill the missing values with **row min**
-        9: Fill the missing values with **row max**
-        10: Fill the missing values with **external reference**
+        0: Fill all missing values with '0.0',
+        1: Fill all missing values with '1.0',
+        2: Fill the missing values with **column mean**,
+        3: Fill the missing values with **column median**,
+        4: Fill the missing values with **column min**,
+        5: Fill the missing values with **column max**,
+        6: Fill the missing values with **row mean**,
+        7: Fill the missing values with **row median**,
+        8: Fill the missing values with **row min**,
+        9: Fill the missing values with **row max**,
+        10: Fill the missing values with **external reference**,
+        11: Fill the missing values using KNN approach (K = sqrt(n)).
     If 10 is specified, an external reference file must be provided.
     '''
 
