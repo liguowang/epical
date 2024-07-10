@@ -4,7 +4,7 @@
 Created on Fri Nov 25 10:55:14 2022
 """
 from dmc import ireader
-
+import os
 
 class MakeMethylObj():
     """
@@ -44,20 +44,26 @@ class MakeMethylObj():
         self.t_platform = training_platform
         self.age_range = training_age_range
         self.age_unit = training_age_range_unit
-        for l in ireader.reader(signature_file):
-            if l.startswith('#'):
-                continue
-            f = l.split()
-            if l.startswith('Intercept'):
-                try:
-                    self.Intercept = float(f[1])
-                except:
-                    self.Intercept = 0.0
-            else:
-                self.cpgs.append(f[0])
-                self.ncpg  += 1
-                try:
-                    self.coef[f[0]] = float(f[1])
-                    # self.ncpg  += 1
-                except:
+        if os.path.exists(signature_file) and os.path.getsize(signature_file) > 0:
+            for l in ireader.reader(signature_file):
+                if l.startswith('#'):
                     continue
+                f = l.split()
+                if l.startswith('Intercept'):
+                    try:
+                        self.Intercept = float(f[1])
+                    except:
+                        self.Intercept = 0.0
+                else:
+                    self.cpgs.append(f[0])
+                    self.ncpg  += 1
+                    try:
+                        self.coef[f[0]] = float(f[1])
+                        # self.ncpg  += 1
+                    except:
+                        continue
+        else:
+            self.Intercept = 'N/A'
+            self.cpgs = []
+            self.ncpg = 'N/A'
+            self.coef = []

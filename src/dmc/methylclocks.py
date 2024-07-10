@@ -30,11 +30,11 @@ __email__ = "wang.liguo@mayo.edu"
 __status__ = "Development"
 
 
-def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
-                  cname="Zhang_BLUP", ff='pdf', na_percent=0.2,
+def clock_general(beta_file, outfile, cname, metafile=None, delimiter=None,
+                  ff='pdf', na_percent=0.2,
                   ovr=False, imputation_method=11, ext_file=None):
     """
-    Calculate DNAm age using the "Zhang_BLUP" or "Zhang_EN" clocks.
+    Calculate DNAm age using the "Weidner" or "Lin" clocks.
 
     Parameters
     ----------
@@ -61,9 +61,7 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
         Character used to separate columns of the input file.
         The default is None
     cname : str, optional
-        Clock name. Must be one of ["Zhang_BLUP", "Zhang_EN"].
-        The default is "Zhang_BLUP".
-        The default is "Horvath_2013".
+        Clock name.
     ff : str, optional
         The figure format. Must be one of ['pdf', 'png'].
         The default is 'pdf'.
@@ -73,7 +71,7 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -119,15 +117,220 @@ def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
         for tmp in outfiles:
             if os.path.exists(tmp):
                 logging.error(
-                    "%s exists! Use different prefix or specify \
-                    \"--overwrite\" to replace existing files." % tmp)
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
-    if cname == 'Zhang_BLUP':
-        fh = importlib.resources.open_binary('dmc.data', 'Zhang_BLUP.pkl')
-    elif cname == 'Zhang_EN':
-        fh = importlib.resources.open_binary('dmc.data', 'Zhang_EN.pkl')
+    model_file = cname + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
+    clock_dat = pickle.load(fh)
+
+    logging.info("Clock's name: \"%s\"" % clock_dat.name)
+    logging.info(
+        "Clock was trained from: \"%s\"" %
+        ','.join(clock_dat.tissues))
+    logging.info("Clock's unit: \"%s\"" % clock_dat.unit)
+    logging.info("Number of CpGs used: %d" % clock_dat.ncpg)
+    logging.info("Clock's description: \"%s\"" % clock_dat.info)
+    clock_coef = pd.Series(clock_dat.coef, name='Coef')
+    clock_intercept = clock_dat.Intercept
+
+    logging.info("Read input file: \"%s\"" % beta_file)
+    input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
+
+    input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
+
+    (n_cpg, n_sample) = input_df2.shape
+    logging.info(
+        "Input file: \"%s\", Number of CpGs: %d, Number of samples: %d" %
+        (beta_file, n_cpg, n_sample))
+    sample_cpg_ids = input_df2.index
+    # sample_names = df2.columns
+
+    #logging.info("Standardization ...")
+    #scaled_df2 = (input_df2 - input_df2.mean())/input_df2.std()
+
+    logging.info("Extract clock CpGs ...")
+    # clock CpGs missed from data file
+    missed_cpgs = set(clock_coef.index) - set(sample_cpg_ids)
+    logging.info(
+        "Clock CpGs missed from '%s': %d (%f%%)" %
+        (beta_file, len(missed_cpgs), len(missed_cpgs)*100/clock_dat.ncpg))
+
+    if len(missed_cpgs)/clock_dat.ncpg > na_percent:
+        logging.critical(
+            "Missing clock CpGs exceed %f%%. Exit!" % (na_percent*100))
+        sys.exit(0)
+    if cname == 'Weidner' and len(missed_cpgs) > 0:
+        logging.critical(
+            "Missing CpGs found: %s. Exit!" % (','.join(missed_cpgs)))
+        sys.exit(0)
+
+    common_cpgs = list(set(clock_coef.index) & set(sample_cpg_ids))
+    logging.info(
+        "Clock CpGs exisit in \"%s\": %d" % (beta_file, len(common_cpgs)))
+
+    used_df = input_df2.loc[common_cpgs]
+    used_clock_coef = clock_coef.loc[common_cpgs]
+    (usable_cpg, usable_sample) = used_df.shape
+    logging.info(
+        "Used CpGs: %d, Used samples: %d" % (usable_cpg, usable_sample))
+
+    df4 = used_df.mul(used_clock_coef, axis=0)
+
+    output = df4.sum(axis=0) + clock_intercept
+    output.name = "%s" % cname
+
+    if metafile is not None:
+        logging.info("Read meta information file: \"%s\"" % metafile)
+        meta_df = pd.read_csv(metafile, sep=None, index_col=0, engine='python')
+        meta_df.index = meta_df.index.astype(str)
+        # combine predicted age and other meta information
+        logging.info("Combining meta information with predicted age")
+        output = pd.concat([output, meta_df], axis=1)
+
+        # generate scatter plot between c_age and d_age
+        c_age = []
+        for col_id in output.columns:
+            if col_id.lower() == 'age':
+                c_age = output[col_id]
+                break
+        d_age = output[cname]
+
+        if len(c_age) >= 2 and len(c_age) == len(d_age):
+            logging.info(
+                "Writing R script of scatter plot. Save to: %s" % r_out)
+            plot_corr(c_age, d_age, outfile=scatter_out, rfile=r_out)
+
+    # save used CpGs to file
+    logging.info("Save used CpGs and beta values to: %s" % used_cpg_out)
+    used_df.to_csv(used_cpg_out, sep="\t", index_label="CpG_ID")
+
+    # save missed CpGs to file
+    logging.info("Save missed CpGs: %s" % missed_cpg_out)
+    tmp = pd.DataFrame(list(missed_cpgs), columns=["missed_CpGs"])
+    tmp.to_csv(missed_cpg_out, sep="\t", index=False)
+
+    # save coef information
+    logging.info("Save CpG and coefficients to: %s" % coef_out)
+    tmp = clock_coef.to_frame()
+    tmp['Found'] = tmp.index.isin(common_cpgs)
+    tmp.to_csv(coef_out, sep="\t", index_label="CpG_ID")
+
+    # save predicted age
+    logging.info("Save predicted DNAm age to: %s" % age_out)
+    output.to_csv(age_out, sep="\t", index_label="Sample_ID")
+
+    # generate coefficient plot
+    logging.info("Writing R script of coefficient plot. Save to: %s" % r_out)
+    plot_coef(coef_out, figure_out, r_out)
+
+    logging.info("Running R script: %s" % r_out)
+    try:
+        subprocess.call("Rscript " + r_out, shell=True)
+    except subprocess.CalledProcessError as e:
+        print("Cannot generate pdf file from " + r_out, file=sys.stderr)
+        print(e.output, file=sys.stderr)
+        pass
+    return output
+
+
+def clock_blup_en(beta_file, outfile, metafile=None, delimiter=None,
+                  cname="Zhang_BLUP", ff='pdf', na_percent=0.2,
+                  ovr=False, imputation_method=11, ext_file=None):
+    """
+    Calculate DNAm age using the "Zhang_BLUP" or "Zhang_EN" clocks.
+
+    Parameters
+    ----------
+    beta_file : str
+        The input tabular structure file containing DNA methylation data.
+
+        #example of CSV file
+        ID_REF,s55N,s58N,s64N,s68N,s72N,s74N,s76N,s77N
+        cg26928153,0.86,0.79695,0.72618,0.67142,0.70801,0.80371,0.87158,0.78885
+        cg16269199,0.74,0.64148,0.65569,0.64138,0.56486,0.5707,0.75318,0.67239
+        cg13869341,0.76,0.7559,0.7059,0.82141,0.72888,0.72055,0.87058,0.80822
+        ...
+    outfile : str
+        The prefix of out files.
+    metafile : str, optional
+        Meta information (e.g., Age, Sex) of samples.
+        Example of a meta file
+            Sample_ID       Age     Sex
+            s16N    65      M
+            s36N    60      F
+            s45N    61      M
+            ...
+    delimiter : str, optional
+        Character used to separate columns of the input file.
+        The default is None
+    cname : str, optional
+        Clock name. Must be one of ["Zhang_BLUP", "Zhang_EN"].
+        The default is "Zhang_BLUP".
+    ff : str, optional
+        The figure format. Must be one of ['pdf', 'png'].
+        The default is 'pdf'.
+    na_percent : float, optional
+        The maximum of percent of missing values.
+        The default is 0.2 (20%).
+    ovr : bool, optional
+        If set, over write existing files. The default is False
+    imputation_method : int
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
+        imputation.py for details. default is 6.
+    ext_file : str
+        This is must be exisit if imputation_method is set to 10.
+        Two-column, Tab or comma separated file: 1st column is CpG ID, the 2nd
+        column is beta value.
+
+    Returns
+    -------
+    Pandas Series.
+    """
+
+    # set up the prefix for output files.
+    if outfile is not None:
+        out_prefix = outfile
+    else:
+        out_prefix = cname + '_out'
+    logging.info(
+        "The prefix of output files is set to \"%s\"." % out_prefix)
+
+    used_cpg_out = out_prefix + '.predictorCpG_found.tsv'
+    missed_cpg_out = out_prefix + '.predictorCpG_missed.tsv'
+    age_out = out_prefix + '.DNAm_age.tsv'
+    coef_out = out_prefix + '.predictorCpG_coef.tsv'
+    r_out = out_prefix + '.plots.R'
+    if ff.lower() in ['pdf', 'png']:
+        figure_out = out_prefix + '.coef_plot.' + ff.lower()
+        scatter_out = out_prefix + '.scatter_plot.' + ff.lower()
+    else:
+        logging.error("Does not suppor format: %s!" % ff)
+        sys.exit(0)
+    outfiles = [used_cpg_out, missed_cpg_out, age_out, coef_out, r_out,
+                figure_out, scatter_out]
+
+    if ovr is True:
+        logging.warning(
+            "Over write existing files with prefix: %s" % out_prefix)
+        for tmp in outfiles:
+            try:
+                os.remove(tmp)
+            except FileNotFoundError:
+                pass
+    else:
+        for tmp in outfiles:
+            if os.path.exists(tmp):
+                logging.error(
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
+                sys.exit(0)
+
+    logging.info("Loading %s clock data ..." % cname)
+    model_file = cname + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
     clock_dat = pickle.load(fh)
 
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
@@ -280,7 +483,7 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -326,25 +529,13 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
         for tmp in outfiles:
             if os.path.exists(tmp):
                 logging.error(
-                    "%s exists! Use different prefix or specify \
-                    \"--overwrite\" to replace existing files." % tmp)
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
-    if cname.lower() == 'Horvath13'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Horvath13.pkl')
-    if cname.lower() == 'Horvath13_shrunk'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Horvath13_shrunk.pkl')
-    elif cname.lower() == 'Horvath18'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Horvath18.pkl')
-    elif cname.lower() == 'PedBE'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Ped_McEwen.pkl')
-    elif cname == 'Ped_Wu':
-        fh = importlib.resources.open_binary('dmc.data', 'Ped_Wu.pkl')
-    elif cname == 'Cortical':
-        fh = importlib.resources.open_binary('dmc.data', 'CorticalClock.pkl')
-    elif cname == 'MEAT':
-        fh = importlib.resources.open_binary('dmc.data', 'MEAT.pkl')
+    model_file = cname + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
     clock_dat = pickle.load(fh)
 
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
@@ -509,7 +700,7 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -555,17 +746,13 @@ def clock_levine_hannum(beta_file, outfile, metafile=None, delimiter=None,
         for tmp in outfiles:
             if os.path.exists(tmp):
                 logging.error(
-                    "%s exists! Use different prefix or specify \
-                    \"--overwrite\" to replace existing files." % tmp)
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
-    if cname.lower() == 'Levine'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Levine.pkl')
-    elif cname.lower() == 'Hannum'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Hannum.pkl')
-    elif cname.lower() == 'Lu_DNAmTL'.lower():
-        fh = importlib.resources.open_binary('dmc.data', 'Lu_DNAmTL.pkl')
+    model_file = cname + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
     clock_dat = pickle.load(fh)
 
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
@@ -717,7 +904,7 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -761,26 +948,14 @@ def clock_GA(beta_file, outfile, metafile=None, delimiter=None,
     else:
         for tmp in outfiles:
             if os.path.exists(tmp):
-                logging.error("%s exists! Use different prefix or specify \
-                             \"--overwrite\" to replace existing files." % tmp)
+                logging.error(
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
-    if cname == 'GA_Knight':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Knight.pkl')
-    elif cname == 'GA_Bohlin':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Bohlin.pkl')
-    elif cname == 'GA_Mayne':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Mayne.pkl')
-    elif cname == 'GA_Haftorn':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Haftorn.pkl')
-    elif cname == 'GA_Lee_CPC':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Lee_CPC.pkl')
-    elif cname == 'GA_Lee_RPC':
-        fh = importlib.resources.open_binary('dmc.data', 'GA_Lee_RPC.pkl')
-    elif cname == 'GA_Lee_rRPC':
-        fh = importlib.resources.open_binary(
-            'dmc.data', 'GA_Lee_refined_RPC.pkl')
+    model_file = cname + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
     clock_dat = pickle.load(fh)
 
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
@@ -927,7 +1102,7 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -978,8 +1153,8 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
         for tmp in outfiles:
             if os.path.exists(tmp):
                 logging.error(
-                    "%s exists! Use different prefix or specify \
-                    \"--overwrite\" to replace existing files." % tmp)
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
@@ -993,7 +1168,7 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
         AltumAge = tf.keras.models.load_model(model_path)
         cpgs = np.array(pd.read_pickle(cpg_path))
 
-        fh = importlib.resources.open_binary('dmc.data', 'AltumAge_cpg.pkl')
+        fh = importlib.resources.open_binary('dmc.data', 'AltumAge.pkl')
 
     clock_dat = pickle.load(fh)
     logging.info("Clock's name: \"%s\"" % clock_dat.name)
@@ -1310,8 +1485,8 @@ def clock_epm(beta_file, metafile, outfile, delimiter=None,
             )
 
 
-def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
-                cname="WLMT", ff='pdf', na_percent=0.2, ovr=False,
+def clock_mouse(beta_file, outfile, cname, genome, metafile=None, delimiter=None,
+                ff='pdf', na_percent=0.2, ovr=False,
                 imputation_method=11, ext_file=None):
     """
     Compute mouse DNAm age using four clocks ("WLMT", "YOMT", "Liver", or
@@ -1358,7 +1533,7 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
     ovr : bool, optional
         If set, over write existing files. The default is False
     imputation_method : int
-        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]. See
+        Must be one of [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]. See
         imputation.py for details. default is 6.
     ext_file : str
         This is must be exisit if imputation_method is set to 10.
@@ -1406,50 +1581,13 @@ def clock_mouse(beta_file, outfile, genome, metafile=None, delimiter=None,
         for tmp in outfiles:
             if os.path.exists(tmp):
                 logging.error(
-                    "%s exists! Use different prefix or specify \
-                    \"--overwrite\" to replace existing files." % tmp)
+                    ("%s exists! Use different prefix or specify "
+                    "\"--overwrite\" to replace existing files." % tmp))
                 sys.exit(0)
 
     logging.info("Loading %s clock data ..." % cname)
-    if cname.lower() == 'mmliver':
-        if genome == 'mm10':
-            fh = importlib.resources.open_binary('dmc.data', 'liver_mm10.pkl')
-        elif genome == 'mm39':
-            fh = importlib.resources.open_binary('dmc.data', 'liver_mm39.pkl')
-        else:
-            logging.error(
-                "Cannot find model file for %s (%s)" % (cname, genome))
-            sys.exit(0)
-    elif cname.lower() == 'mmblood':
-        if genome == 'mm10':
-            fh = importlib.resources.open_binary('dmc.data', 'blood_mm10.pkl')
-        elif genome == 'mm39':
-            fh = importlib.resources.open_binary('dmc.data', 'blood_mm39.pkl')
-        else:
-            logging.error(
-                "Cannot find model file for %s (%s)" % (cname, genome))
-            sys.exit(0)
-    elif cname.lower() == 'wlmt':
-        if genome == 'mm10':
-            fh = importlib.resources.open_binary('dmc.data', 'WLMT_mm10.pkl')
-        elif genome == 'mm39':
-            fh = importlib.resources.open_binary('dmc.data', 'WLMT_mm39.pkl')
-        else:
-            logging.error(
-                "Cannot find model file for %s (%s)" % (cname, genome))
-            sys.exit(0)
-    elif cname.lower() == 'yomt':
-        if genome == 'mm10':
-            fh = importlib.resources.open_binary('dmc.data', 'YOMT_mm10.pkl')
-        elif genome == 'mm39':
-            fh = importlib.resources.open_binary('dmc.data', 'YOMT_mm39.pkl')
-        else:
-            logging.error(
-                "Cannot find model file for %s (%s)" % (cname, genome))
-            sys.exit(0)
-    else:
-        logging.error("Unknown command %s" % cname)
-        sys.exit(0)
+    model_file = cname + '_' + genome + '.pkl'
+    fh = importlib.resources.open_binary('dmc.data', model_file)
 
     clock_dat = pickle.load(fh)
 

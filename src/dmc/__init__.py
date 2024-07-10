@@ -7,6 +7,7 @@ from dmc._version import __version__
 from dmc import helpdoc
 from dmc.clock_info import clockinfo
 from dmc import methylclocks
+from dmc import DunedinPACE
 from dmc.utils import config_log
 
 __author__ = "Liguo Wang"
@@ -33,28 +34,29 @@ def epical():
         'Hannum': clockinfo('Hannum.pkl'),
         'Zhang_EN': clockinfo('Zhang_EN.pkl'),
         'Zhang_BLUP': clockinfo('Zhang_BLUP.pkl'),
-        'AltumAge': clockinfo('AltumAge_cpg.pkl'),
+        'AltumAge': clockinfo('AltumAge.pkl'),
         'Lu_DNAmTL': clockinfo('Lu_DNAmTL.pkl'),
-
+        'Weidner': clockinfo('Weidner.pkl'),
+        'Lin': clockinfo('Lin.pkl'),
+        'ENCen100': clockinfo('ENCen100.pkl'),
+        'ENCen40': clockinfo('ENCen40.pkl'),
+        'DunedinPACE': clockinfo('DunedinPACE.pkl'),
         'Ped_Wu': clockinfo('Ped_Wu.pkl'),
-        'PedBE': clockinfo('Ped_McEwen.pkl'),
-
+        'PedBE': clockinfo('PedBE.pkl'),
         'GA_Bohlin': clockinfo('GA_Bohlin.pkl'),
         'GA_Haftorn': clockinfo('GA_Haftorn.pkl'),
         'GA_Knight': clockinfo('GA_Knight.pkl'),
         'GA_Mayne': clockinfo('GA_Mayne.pkl'),
         'GA_Lee_CPC': clockinfo('GA_Lee_CPC.pkl'),
         'GA_Lee_RPC': clockinfo('GA_Lee_RPC.pkl'),
-        'GA_Lee_rRPC': clockinfo('GA_Lee_refined_RPC.pkl'),
-
-        'Cortical': clockinfo('CorticalClock.pkl'),
+        'GA_Lee_rRPC': clockinfo('GA_Lee_rRPC.pkl'),
+        'Cortical': clockinfo('Cortical.pkl'),
         'MEAT': clockinfo('MEAT.pkl'),
         'EPM': helpdoc.epm_help,
-
         'WLMT': clockinfo('WLMT_mm10.pkl'),
         'YOMT': clockinfo('YOMT_mm10.pkl'),
-        'mmLiver': clockinfo('liver_mm10.pkl'),
-        'mmBlood': clockinfo('blood_mm10.pkl')
+        'mmLiver': clockinfo('mmLiver_mm10.pkl'),
+        'mmBlood': clockinfo('mmBlood_mm10.pkl')
          }
 
     # create parse
@@ -131,6 +133,21 @@ def epical():
         )
     parser_MEAT = sub_parsers.add_parser(
         'MEAT', help=commands['MEAT']
+        )
+    parser_Weidner = sub_parsers.add_parser(
+        'Weidner', help=commands['Weidner']
+        )
+    parser_Lin = sub_parsers.add_parser(
+        'Lin', help=commands['Lin']
+        )
+    parser_ENCen100 = sub_parsers.add_parser(
+        'ENCen100', help=commands['ENCen100']
+        )
+    parser_ENCen40 = sub_parsers.add_parser(
+        'ENCen40', help=commands['ENCen40']
+        )
+    parser_DunedinPACE = sub_parsers.add_parser(
+        'DunedinPACE', help=commands['DunedinPACE']
         )
     parser_WLMT = sub_parsers.add_parser(
         'WLMT', help=commands['WLMT']
@@ -238,6 +255,160 @@ def epical():
     parser_MEAT.add_argument(
         '--debug', action='store_true', help=helpdoc.debug_help)
 
+
+    # create the parser for the 'Weidner' sub-command
+    parser_Weidner.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_Weidner.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_Weidner.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_Weidner.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_Weidner.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_Weidner.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_Weidner.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_Weidner.add_argument(
+        '--impute', type=int, choices=range(-1, 12), default=11,
+        help=helpdoc.imputation_help)
+    parser_Weidner.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_Weidner.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_Weidner.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+
+    # create the parser for the 'Lin' sub-command
+    parser_Lin.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_Lin.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_Lin.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_Lin.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_Lin.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_Lin.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_Lin.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_Lin.add_argument(
+        '--impute', type=int, choices=range(-1, 12), default=11,
+        help=helpdoc.imputation_help)
+    parser_Lin.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_Lin.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_Lin.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+
+    # create the parser for the 'ENCen100' sub-command
+    parser_ENCen100.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_ENCen100.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_ENCen100.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_ENCen100.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_ENCen100.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_ENCen100.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_ENCen100.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_ENCen100.add_argument(
+        '--impute', type=int, choices=range(-1, 12), default=11,
+        help=helpdoc.imputation_help)
+    parser_ENCen100.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_ENCen100.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_ENCen100.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+
+    # create the parser for the 'ENCen40' sub-command
+    parser_ENCen40.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_ENCen40.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_ENCen40.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_ENCen40.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_ENCen40.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_ENCen40.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_ENCen40.add_argument(
+        '-l', '--log', type=str, metavar='log_file', default=None,
+        help=helpdoc.log_help)
+    parser_ENCen40.add_argument(
+        '--impute', type=int, choices=range(-1, 12), default=11,
+        help=helpdoc.imputation_help)
+    parser_ENCen40.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_ENCen40.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_ENCen40.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+
+    # create the parser for the 'DunedinPACE' sub-command
+    parser_DunedinPACE.add_argument(
+        'input', type=str, metavar='Input_file', help=helpdoc.input_help)
+    parser_DunedinPACE.add_argument(
+        '-o', '--output', type=str, metavar='out_prefix', default=None,
+        help=helpdoc.output_help)
+    parser_DunedinPACE.add_argument(
+        '-p', '--percent', type=float, default=0.2, help=helpdoc.na_help)
+    parser_DunedinPACE.add_argument(
+        '-d', '--delimiter', type=str, default=None, help=helpdoc.del_help)
+    parser_DunedinPACE.add_argument(
+        '-f', '--format', type=str, choices=['pdf', 'png'], default='pdf',
+        help=helpdoc.format_help)
+    parser_DunedinPACE.add_argument(
+        '-m', '--metadata', type=str, metavar='meta_file', default=None,
+        help=helpdoc.meta_help)
+    parser_DunedinPACE.add_argument(
+        '--impute', type=int, choices=range(-1, 12), default=11,
+        help=helpdoc.imputation_help)
+    parser_DunedinPACE.add_argument(
+        '-r', '--ref', type=str, metavar='ref_file', default=None,
+        help=helpdoc.ext_ref_help)
+    parser_DunedinPACE.add_argument(
+        '--overwrite', action='store_true',
+        help='If set, over-write existing output files.')
+    parser_DunedinPACE.add_argument(
+        '--debug', action='store_true', help=helpdoc.debug_help)
+    
+    
     # create the parser for the 'Horvath18' sub-command
     parser_Horvath18.add_argument(
         'input', type=str, metavar='Input_file', help=helpdoc.input_help)
@@ -951,7 +1122,7 @@ def epical():
         sys.exit(0)
     elif len(sys.argv) >= 2:
         command = sys.argv[1]
-        if command == 'Horvath13':
+        if command in ['Horvath13', 'Horvath13_shrunk', 'Horvath18', 'MEAT', 'PedBE', 'Cortical']:
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_horvath(
                 beta_file=args.input,
@@ -965,66 +1136,7 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'Horvath13_shrunk':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_horvath(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                adult_age=20, cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'Horvath18':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_horvath(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                adult_age=20,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'MEAT':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_horvath(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                adult_age=20,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'PedBE':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_horvath(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                adult_age=20,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'Levine':
+        elif command in ['Levine', 'Hannum', 'Lu_DNAmTL']:
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_levine_hannum(
                 beta_file=args.input,
@@ -1038,35 +1150,7 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'Hannum':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_levine_hannum(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'Lu_DNAmTL':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_levine_hannum(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'Zhang_BLUP':
+        elif command in ['Zhang_BLUP', 'Zhang_EN']:
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_blup_en(
                 beta_file=args.input,
@@ -1080,105 +1164,7 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'Zhang_EN':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_blup_en(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Knight':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Mayne':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Bohlin':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Haftorn':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Lee_CPC':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Lee_RPC':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_GA(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'GA_Lee_rRPC':
+        elif command in ['GA_Knight', 'GA_Mayne', 'GA_Bohlin', 'GA_Haftorn', 'GA_Lee_CPC', 'GA_Lee_RPC', 'GA_Lee_rRPC']:
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_GA(
                 beta_file=args.input,
@@ -1221,20 +1207,7 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'Cortical':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_horvath(
-                beta_file=args.input,
-                outfile=args.output,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                adult_age=20, cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
+
         elif command == 'EPM':
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_epm(
@@ -1251,13 +1224,11 @@ def epical():
                 frmt=args.format,
                 cname=command
                 )
-
-        elif command == 'WLMT':
+        elif command in ['Weidner', 'Lin', 'ENCen100', 'ENCen40']:
             config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_mouse(
+            methylclocks.clock_general(
                 beta_file=args.input,
                 outfile=args.output,
-                genome=args.genome,
                 metafile=args.metadata,
                 delimiter=args.delimiter,
                 cname=command,
@@ -1267,37 +1238,20 @@ def epical():
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'YOMT':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_mouse(
+        elif command in ['DunedinPACE']:
+            config_log(switch=args.debug)
+            DunedinPACE.DunedinPACE_clock(
                 beta_file=args.input,
                 outfile=args.output,
-                genome=args.genome,
                 metafile=args.metadata,
                 delimiter=args.delimiter,
-                cname=command,
                 ff=args.format,
                 na_percent=args.percent,
                 ovr=args.overwrite,
                 imputation_method=args.impute,
                 ext_file=args.ref
                 )
-        elif command == 'mmLiver':
-            config_log(switch=args.debug, logfile=args.log)
-            methylclocks.clock_mouse(
-                beta_file=args.input,
-                outfile=args.output,
-                genome=args.genome,
-                metafile=args.metadata,
-                delimiter=args.delimiter,
-                cname=command,
-                ff=args.format,
-                na_percent=args.percent,
-                ovr=args.overwrite,
-                imputation_method=args.impute,
-                ext_file=args.ref
-                )
-        elif command == 'mmBlood':
+        elif command in ['WLMT', 'YOMT', 'mmLiver', 'mmBlood']:
             config_log(switch=args.debug, logfile=args.log)
             methylclocks.clock_mouse(
                 beta_file=args.input,

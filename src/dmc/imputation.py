@@ -172,7 +172,8 @@ def impute_beta(input_df, method, ref=None, k=None, w='uniform'):
         else:
             nb = k
         imputer = KNNImputer(n_neighbors=nb, weights=w)
-        output_df = imputer.fit_transform(input_df)
+        after = imputer.fit_transform(input_df)
+        output_df = pd.DataFrame(after, index = input_df.index, columns = input_df.columns)
     return output_df
 
 
