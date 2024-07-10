@@ -27,6 +27,7 @@ dependencies = [
 	"EpigeneticPacemaker",
 	"matplotlib",
 	"tensorflow",
+	"rpy2",
 ]
 classifiers=[
 	"Programming Language :: Python :: 3",
