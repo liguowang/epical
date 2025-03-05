@@ -443,8 +443,8 @@ def clock_horvath(beta_file, outfile, metafile=None, delimiter=None, adult_age=2
                   cname="Horvath_2013", ff='pdf', na_percent=0.2, ovr=False,
                   imputation_method=11, ext_file=None):
     """
-    Calculate DNAm age using the "Horvath_2013", "Horvath_2018", "PedPE" or
-    "Ped_Wu" clocks.
+    Calculate DNAm age using the "Horvath_2013", "Horvath13_shrunk", 
+    "Horvath_2018", "PedPE", "Ped_Wu", "MEAT" or "Cortical" clocks.
 
     Parameters
     ----------
@@ -1114,6 +1114,7 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
     Pandas Series.
     """
     import tensorflow as tf
+    from dmc.tf_mse import mse
     # from sklearn import linear_model, preprocessing
 
     # set up the prefix for output files.
@@ -1165,7 +1166,7 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
         cpg_path = os.path.join(this_dir, "data", "multi_platform_cpgs.pkl")
 
         scaler = pd.read_pickle(scaler_path)
-        AltumAge = tf.keras.models.load_model(model_path)
+        AltumAge = tf.keras.models.load_model(model_path, custom_objects={'mse': mse})
         cpgs = np.array(pd.read_pickle(cpg_path))
 
         fh = importlib.resources.open_binary('dmc.data', 'AltumAge.pkl')
@@ -1181,22 +1182,19 @@ def altum_age(beta_file, outfile, metafile=None, delimiter=None,
     logging.info("Read input file: \"%s\" ..." % beta_file)
     input_df1 = pd.read_csv(beta_file, sep=None, index_col=0, engine='python')
 
-    input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
     # check if there is any missed CpGs
-    missed_cpgs = list(set(cpgs) - set(input_df2.index))
+    missed_cpgs = list(set(cpgs) - set(input_df1.index))
     # print (missed_cpgs)
-
     logging.info("%d CpGs were missed from %s" % (len(missed_cpgs), beta_file))
+
+    if len(missed_cpgs) > 0:
+        # create a new dataframe with all zeros
+        df_missed = pd.DataFrame(0, index=missed_cpgs, columns=input_df1.columns) 
+        input_df1 = pd.concat([input_df1, df_missed], ignore_index=False)
+    input_df2 = impute_beta(input_df1, method=imputation_method, ref=ext_file)
 
     logging.info("Transpose input data frame ...")
     df_transpose = input_df2.T
-
-    if len(missed_cpgs) > 0:
-        logging.info("Insert missed CpGs back ...")
-        tmp = df_transpose.mean(axis=1)
-        for cpg_name in missed_cpgs:
-            print(cpg_name)
-            df_transpose[cpg_name] = 0
 
     logging.info("Extract clock CpG from data frame ...")
     df_used = df_transpose[cpgs]
